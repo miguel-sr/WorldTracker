@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTracker.Infra", "WorldTracker.Infra\WorldTracker.Infra.csproj", "{5B88DA94-77CE-4390-858A-041623EF9DC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTracker.Domain", "WorldTracker.Domain\WorldTracker.Domain.csproj", "{EC3C388F-5B3D-430D-9D68-621139570B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTracker.Web", "WorldTracker.Web\WorldTracker.Web.csproj", "{373D3BA5-C648-434C-97E6-FC087DF4DE03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTracker.Tests", "WorldTracker.Tests\WorldTracker.Tests.csproj", "{4CE3FEB3-4864-4ABD-B1FA-AAA5EA1C6374}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTracker.Common", "WorldTracker.Common\WorldTracker.Common.csproj", "{7572C6A2-FD50-4EC6-9132-D18DFA786B13}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D8EC7DEC-EBBB-4497-B8E0-7388C15AFBEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B88DA94-77CE-4390-858A-041623EF9DC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B88DA94-77CE-4390-858A-041623EF9DC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B88DA94-77CE-4390-858A-041623EF9DC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B88DA94-77CE-4390-858A-041623EF9DC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC3C388F-5B3D-430D-9D68-621139570B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC3C388F-5B3D-430D-9D68-621139570B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC3C388F-5B3D-430D-9D68-621139570B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC3C388F-5B3D-430D-9D68-621139570B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{373D3BA5-C648-434C-97E6-FC087DF4DE03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{373D3BA5-C648-434C-97E6-FC087DF4DE03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{373D3BA5-C648-434C-97E6-FC087DF4DE03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{373D3BA5-C648-434C-97E6-FC087DF4DE03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CE3FEB3-4864-4ABD-B1FA-AAA5EA1C6374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CE3FEB3-4864-4ABD-B1FA-AAA5EA1C6374}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CE3FEB3-4864-4ABD-B1FA-AAA5EA1C6374}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CE3FEB3-4864-4ABD-B1FA-AAA5EA1C6374}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7572C6A2-FD50-4EC6-9132-D18DFA786B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7572C6A2-FD50-4EC6-9132-D18DFA786B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7572C6A2-FD50-4EC6-9132-D18DFA786B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7572C6A2-FD50-4EC6-9132-D18DFA786B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8EC7DEC-EBBB-4497-B8E0-7388C15AFBEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8EC7DEC-EBBB-4497-B8E0-7388C15AFBEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8EC7DEC-EBBB-4497-B8E0-7388C15AFBEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8EC7DEC-EBBB-4497-B8E0-7388C15AFBEB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
