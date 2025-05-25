@@ -11,5 +11,7 @@
 
         public const string ENV_OPEN_WEATHER_API_KEY = "WT_OPEN_WEATHER_API_KEY";
         public const string ENV_OPEN_WEATHER_BASE_URL = "WT_OPEN_WEATHER_BASE_URL";
+
+        public const string ENV_REST_COUNTRY_BASE_URL = "WT_REST_COUNTRY_BASE_URL";
     }
 }

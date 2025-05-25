@@ -21,6 +21,18 @@ namespace WorldTracker.Web
                 client.BaseAddress = new Uri(baseUrl);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
             });
+
+            services.AddScoped<ICountryRepository, CountryDynamoRepository>();
+            services.AddHttpClient<ICountryService, CountryService>(client =>
+            {
+                var baseUrl = Constants.ENV_REST_COUNTRY_BASE_URL.GetRequiredEnvironmentVariable();
+
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
+
+            services.AddScoped<IUserFavoriteRepository, UserFavoriteDynamoRepository>();
+            services.AddScoped<IUserFavoriteService, UserFavoriteService>();
         }
     }
 }

@@ -22,11 +22,9 @@ namespace WorldTracker.Infra.Services
             _apiKey = Constants.ENV_OPEN_WEATHER_API_KEY.GetRequiredEnvironmentVariable();
         }
 
-
-        // Create a DTO for the coordinates
         public async Task<Weather> GetWeather(Coordinates coordinates)
         {
-            // Set units and lang by user preference 
+            // Set units and lang by user preference
             var url = $"data/2.5/weather?lat={coordinates.Latitude}&lon={coordinates.Longitude}&units=metric&lang=en&appid={_apiKey}";
 
             try
@@ -37,7 +35,7 @@ namespace WorldTracker.Infra.Services
 
                 var json = await response.Content.ReadAsStringAsync();
 
-                var dto = JsonSerializer.Deserialize<WeatherResponse>(json, new JsonSerializerOptions
+                var dto = JsonSerializer.Deserialize<WeatherResponseDto>(json, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
@@ -49,7 +47,7 @@ namespace WorldTracker.Infra.Services
                     Description = dto.Weather.FirstOrDefault()?.Description
                 };
             }
-            catch (Exception ex)
+            catch (HttpRequestException ex)
             {
                 _logger.LogError(ex, "Failed to get weather for coordinates {coordinates}", coordinates.ToString());
                 throw;

@@ -13,7 +13,8 @@ dist-ssr
 *.local
 
 .env
-uploads
+**/.terraform
+.terraform.lock.hcl
 
 # Editor directories and files
 .vscode/*

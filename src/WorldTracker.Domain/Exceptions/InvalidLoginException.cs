@@ -4,7 +4,7 @@ namespace WorldTracker.Domain.Exceptions
 {
     public class InvalidLoginException : HttpRequestException
     {
-        private const string MESSAGE = "Invalid username or password.";
+        private const string MESSAGE = "Invalid email or password.";
 
         public InvalidLoginException()
             : this(MESSAGE)

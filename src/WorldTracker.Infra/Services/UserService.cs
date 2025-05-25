@@ -8,45 +8,45 @@ namespace WorldTracker.Infra.Services
 {
     public class UserService(IUserRepository repository) : IUserService
     {
-        public async Task CreateUser(User user)
+        public async Task CreateAsync(User user)
         {
             // Check if the e-mail is already in use
 
             user.Password = PasswordUtils.GenerateHash(user.Password);
 
-            await repository.Create(user);
+            await repository.CreateAsync(user);
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
-            return await repository.GetAll();
+            return await repository.GetAllAsync();
         }
 
-        public async Task<User> GetUserById(Guid id)
+        public async Task<User> GetByIdAsync(Guid id)
         {
-            return await repository.GetById(id);
+            return await repository.GetByIdAsync(id);
         }
 
-        public async Task<User> GetUserByEmail(string email)
+        public async Task<User?> GetByEmailAsync(string email)
         {
-            return await repository.GetByEmail(email);
+            return await repository.GetByEmailAsync(email);
         }
 
-        public async Task UpdateUser(User user)
+        public async Task UpdateAsync(User user)
         {
-            await repository.Update(user);
+            await repository.UpdateAsync(user);
         }
 
-        public async Task DeleteUser(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            await repository.Delete(id);
+            await repository.DeleteAsync(id);
         }
 
-        public async Task<string> AuthenticateUser(string email, string password)
+        public async Task<string> AuthenticateAsync(string email, string password)
         {
-            var user = await GetUserByEmail(email);
+            var user = await GetByEmailAsync(email);
 
-            if (!PasswordUtils.ValidateHash(password, user.Password))
+            if (user is null || !PasswordUtils.ValidateHash(password, user.Password))
                 throw new InvalidLoginException();
 
             return TokenService.GenerateToken(user);

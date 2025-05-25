@@ -1,10 +1,10 @@
 ﻿namespace WorldTracker.Infra.DTOs
 {
-    public class WeatherResponse
+    public class WeatherResponseDto
     {
-        public string Name { get; set; }
-        public MainDto Main { get; set; }
-        public List<WeatherDto> Weather { get; set; }
+        public required string Name { get; set; }
+        public required MainDto Main { get; set; }
+        public required List<WeatherDto> Weather { get; set; }
     }
 
     public class MainDto

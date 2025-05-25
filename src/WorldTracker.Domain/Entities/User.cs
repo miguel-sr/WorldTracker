@@ -20,6 +20,9 @@ namespace WorldTracker.Domain.Entities
         [DynamoDBProperty]
         public required string Password { get; set; }
 
+        [DynamoDBProperty]
+        public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+
         public User()
         {
             Id = Guid.NewGuid();

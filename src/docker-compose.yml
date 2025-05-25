@@ -1,4 +1,18 @@
 services:
+  # terraform:
+  #   image: hashicorp/terraform:1.5.7
+  #   working_dir: /terraform
+  #   volumes:
+  #     - ./WorldTracker.Infra.Database/Terraform:/terraform
+  #   entrypoint: ["/bin/sh", "-c"]
+  #   command: ["echo $WT_AWS_IAM_ACCESS_KEY"]
+  #   env_file:
+  #     - ../.env
+  #   environment:
+  #     AWS_ACCESS_KEY_ID: ${WT_AWS_IAM_ACCESS_KEY}
+  #     AWS_SECRET_ACCESS_KEY: ${WT_AWS_IAM_SECRET_KEY}
+  #     AWS_DEFAULT_REGION: ${WT_AWS_REGION}
+
   worldtracker.web:
     image: ${DOCKER_REGISTRY-}worldtrackerweb
     build:
@@ -12,3 +26,5 @@ services:
       - WT_DOTENV_PATH=/app/.env
     env_file:
       - ../.env
+    # depends_on:
+      # - terraform

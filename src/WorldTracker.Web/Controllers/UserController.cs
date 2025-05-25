@@ -8,25 +8,25 @@ namespace WorldTracker.Web.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class UserController(IUserService service) : AppControllerBase
+    public class UserController(IUserService service) : ControllerBase
     {
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] User user)
         {
-            await service.CreateUser(user);
+            await service.CreateAsync(user);
 
-            return CreatedAtAction(nameof(GetUserById), new UserGetDto
+            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, new UserGetDto
             {
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email
-            }, dto => dto.Id);
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = (await service.GetAllUsers()).Select(user => new UserGetDto
+            var users = (await service.GetAllAsync()).Select(user => new UserGetDto
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -39,7 +39,7 @@ namespace WorldTracker.Web.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(Guid id)
         {
-            var user = await service.GetUserById(id);
+            var user = await service.GetByIdAsync(id);
 
             if (user is null)
                 return NotFound();
@@ -55,7 +55,7 @@ namespace WorldTracker.Web.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateUser(User user)
         {
-            await service.UpdateUser(user);
+            await service.UpdateAsync(user);
 
             return NoContent();
         }
@@ -63,7 +63,7 @@ namespace WorldTracker.Web.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
-            await service.DeleteUser(id);
+            await service.DeleteAsync(id);
 
             return NoContent();
         }
@@ -72,17 +72,9 @@ namespace WorldTracker.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> AuthenticateUser([FromBody] AuthDataDto authDataDto)
         {
-            var token = await service.AuthenticateUser(authDataDto.Email, authDataDto.Password);
+            var token = await service.AuthenticateAsync(authDataDto.Email, authDataDto.Password);
 
             return Ok(token);
-        }
-
-        [HttpGet("validar")]
-        public IActionResult ValidarToken()
-        {
-            const bool TOKEN_VALIDO = true;
-
-            return Ok(TOKEN_VALIDO);
         }
     }
 }

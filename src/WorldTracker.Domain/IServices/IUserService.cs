@@ -4,18 +4,18 @@ namespace WorldTracker.Domain.IServices
 {
     public interface IUserService
     {
-        Task CreateUser(User user);
+        Task CreateAsync(User user);
 
-        Task<IEnumerable<User>> GetAllUsers();
+        Task<IEnumerable<User>> GetAllAsync();
 
-        Task<User> GetUserById(Guid id);
+        Task<User> GetByIdAsync(Guid id);
 
-        Task<User> GetUserByEmail(string email);
+        Task<User?> GetByEmailAsync(string email);
 
-        Task UpdateUser(User user);
+        Task UpdateAsync(User user);
 
-        Task DeleteUser(Guid id);
+        Task DeleteAsync(Guid id);
 
-        Task<string> AuthenticateUser(string email, string password);
+        Task<string> AuthenticateAsync(string email, string password);
     }
 }

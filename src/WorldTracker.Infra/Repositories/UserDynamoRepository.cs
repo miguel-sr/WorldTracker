@@ -1,46 +1,46 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
-using System.Net;
 using WorldTracker.Domain.Entities;
+using WorldTracker.Domain.Exceptions;
 using WorldTracker.Domain.IRepositories;
 
 namespace WorldTracker.Infra.Repositories
 {
     public class UserDynamoRepository(IDynamoDBContext context) : IUserRepository
     {
-        public async Task<User> Create(User user)
+        public async Task CreateAsync(User user)
         {
             await context.SaveAsync(user);
-
-            return user;
         }
 
-        public async Task<IEnumerable<User>> GetAll()
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
             return await context.ScanAsync<User>([]).GetRemainingAsync();
         }
 
-        public async Task<User?> GetById(Guid id)
+        public async Task<User> GetByIdAsync(Guid id)
         {
-            return await context.LoadAsync<User>(id);
+            var user = await context.LoadAsync<User>(id);
+
+            if (user is null)
+                throw new ResourceNotFoundException(nameof(User), id);
+
+            return user;
         }
 
-        public async Task<User?> GetByEmail(string email)
+        public async Task<User?> GetByEmailAsync(string email)
         {
             return (await context.ScanAsync<User>([new(nameof(User.Email), ScanOperator.Equal, email)]).GetRemainingAsync()).FirstOrDefault();
         }
 
-        public async Task Update(User user)
+        public async Task UpdateAsync(User user)
         {
             await context.SaveAsync(user);
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            var user = await GetById(id);
-
-            if (user is null)
-                throw new HttpRequestException($"Usuário com ID {id} não encontrado.", null, HttpStatusCode.NotFound);
+            await GetByIdAsync(id);
 
             await context.DeleteAsync<User>(id);
         }

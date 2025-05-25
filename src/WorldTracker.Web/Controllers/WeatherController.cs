@@ -6,7 +6,7 @@ namespace WorldTracker.Web.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class WeatherController(IWeatherService service) : AppControllerBase
+    public class WeatherController(IWeatherService service) : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> GetWeather([FromQuery] double latitude, [FromQuery] double longitude)

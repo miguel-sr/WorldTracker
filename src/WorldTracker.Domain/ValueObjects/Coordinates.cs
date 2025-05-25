@@ -23,5 +23,19 @@
         }
 
         public override string ToString() => $"{Latitude}, {Longitude}";
+
+        public static Coordinates Parse(string value)
+        {
+            var parts = value.Split(", ");
+
+            if (parts.Length != 2 ||
+                !double.TryParse(parts[0], out var lat) ||
+                !double.TryParse(parts[1], out var lon))
+            {
+                throw new FormatException("Invalid coordinate format. Expected format: 'lat, lon'");
+            }
+
+            return new Coordinates(lat, lon);
+        }
     }
 }
