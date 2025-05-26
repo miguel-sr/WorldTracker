@@ -4,15 +4,20 @@ using WorldTracker.Domain.ValueObjects;
 
 namespace WorldTracker.Domain.Entities
 {
-    [DynamoDBTable("Countries")]
+    [DynamoDBTable(TABLE_NAME)]
 
     public class Country
     {
+        public const string TABLE_NAME = "Countries";
+
         [DynamoDBHashKey]
         public required string Code { get; set; }
 
         [DynamoDBProperty]
         public required string Name { get; set; }
+
+        [DynamoDBProperty]
+        public string Category { get; set; } = "Country";
 
         [DynamoDBProperty]
         public CurrencyInfo? CurrencyInfo { get; set; }

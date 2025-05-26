@@ -1,5 +1,5 @@
 import { TOKEN_KEY } from "@/common/Constants";
-import useProcessadorDeRequisicoes from "@/common/hooks/useProcessadorDeRequisicoes";
+import useRequestHandler from "@/common/hooks/useRequestHandler";
 import Button from "@/components/Button";
 import Footer from "@/components/Footer";
 import { Form, Input } from "@/components/Form";
@@ -15,13 +15,12 @@ const INITIAL_LOGIN_DATA: IAuthData = {
 };
 
 export default function Login() {
-  const { showLoading } = useProcessadorDeRequisicoes();
-  const { AuthenticateUser } = UserRepository();
+  const { showLoading } = useRequestHandler();
   const [loginData, setLoginData] = useState<IAuthData>(INITIAL_LOGIN_DATA);
 
   function authenticateUser() {
     showLoading(async () => {
-      const token = await AuthenticateUser(loginData);
+      const token = await UserRepository().AuthenticateUser(loginData);
 
       localStorage.setItem(TOKEN_KEY, token);
       location.href = "/";

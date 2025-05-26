@@ -1,44 +1,76 @@
-import Earth from "@/assets/Earth.svg";
 import Footer from "@/components/Footer";
-import { Logo } from "@/components/Logo";
 import Navbar from "@/components/Navbar";
-import { Link } from "react-router-dom";
+import Banner from "./components/Banner";
+import CountriesWithWeather from "./components/CountriesWithWeather";
 
 export default function Homepage() {
   return (
     <>
       <Navbar position="relative" />
-      <section className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 py-24 gap-16 md:min-h-screen">
-        <img
-          src={Earth}
-          className="absolute md:right-0 top-0 h-full max-w-[50%] object-contain max-md:hidden"
-        />
-        <div className="flex flex-col max-w-xl text-dark-gray max-md:text-center max-md:items-center">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Bem-vindo ao <Logo size="lg" />
-          </h1>
-          <p className="my-6 text-md md:text-xl leading-relaxed">
-            Consulte o clima atual de qualquer cidade do mundo, explore dados
-            completos de países e salve seus favoritos com praticidade.
-          </p>
-          <div className="flex flex-wrap justify-center md:justify-start gap-4">
-            <Link
-              to="/login"
-              className="px-8 py-3 rounded-xl bg-sky-600 text-white font-semibold hover:bg-sky-700 transition-colors duration-200"
-              aria-label="Ir para a página de login"
+      <main>
+        <Banner />
+        <section className="mb-10 mx-auto p-6 bg-sky-blue">
+          <h2 className="text-3xl font-semibold mb-4 text-center text-white">
+            Busque por seu país
+          </h2>
+          <form
+            className="max-w-md mx-auto flex items-center border border-gray-300 rounded-lg bg-white shadow-sm focus-within:ring-2 focus-within:ring-sky-500 px-4 py-2 transition-shadow"
+            role="search"
+            aria-label="Busca de cidade para clima"
+          >
+            <input
+              type="text"
+              name="city"
+              placeholder="Digite o nome do país"
+              className="flex-grow text-gray-700 placeholder-gray-400 bg-transparent focus:outline-none"
+              required
+            />
+            <button
+              type="submit"
+              className="ml-3 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg px-4 py-2 transition-colors"
+              aria-label="Buscar clima"
             >
-              Entrar
-            </Link>
-            <Link
-              to="/register"
-              className="px-8 py-3 rounded-xl bg-blue-50 border border-sky-600 text-sky-600 font-semibold hover:bg-white transition-all duration-300"
-              aria-label="Ir para a página de criação de conta"
+              Buscar
+            </button>
+          </form>
+        </section>
+        {/* {weather && <WeatherCard weather={weather} />} */}
+        <CountriesWithWeather />
+        <div className="p-6 bg-gray-50 flex flex-wrap gap-6 justify-center">
+          {[
+            { code: "01d", desc: "clear sky (day)" },
+            { code: "01n", desc: "clear sky (night)" },
+            { code: "02d", desc: "few clouds (day)" },
+            { code: "02n", desc: "few clouds (night)" },
+            { code: "03d", desc: "scattered clouds (day)" },
+            { code: "03n", desc: "scattered clouds (night)" },
+            { code: "04d", desc: "broken clouds (day)" },
+            { code: "04n", desc: "broken clouds (night)" },
+            { code: "09d", desc: "shower rain (day)" },
+            { code: "09n", desc: "shower rain (night)" },
+            { code: "10d", desc: "rain (day)" },
+            { code: "10n", desc: "rain (night)" },
+            { code: "11d", desc: "thunderstorm (day)" },
+            { code: "11n", desc: "thunderstorm (night)" },
+            { code: "13d", desc: "snow (day)" },
+            { code: "13n", desc: "snow (night)" },
+            { code: "50d", desc: "mist (day)" },
+            { code: "50n", desc: "mist (night)" },
+          ].map(({ code, desc }) => (
+            <div
+              key={code}
+              className="flex flex-col items-center justify-center w-24 p-3 rounded-md bg-blue-300 border-2"
             >
-              Criar Conta
-            </Link>
-          </div>
+              <img
+                src={`https://openweathermap.org/img/wn/${code}@4x.png`}
+                alt={desc}
+                className="w-16 h-16 mb-1"
+              />
+              <span className="text-white text-xs text-center">{desc}</span>
+            </div>
+          ))}
         </div>
-      </section>
+      </main>
       <Footer />
     </>
   );

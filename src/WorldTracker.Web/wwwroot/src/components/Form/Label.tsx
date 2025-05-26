@@ -11,7 +11,7 @@ export default function Label({
       {label}
       {required && (
         <p className="text-red-600 text-sm absolute top-0 right-0 font-bold ml-2">
-          *required
+          *obrigatório
         </p>
       )}
       {caption !== undefined && (

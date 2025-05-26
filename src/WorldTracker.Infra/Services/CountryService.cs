@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Text.Json;
+using WorldTracker.Common.DTOs;
 using WorldTracker.Domain.Entities;
 using WorldTracker.Domain.IRepositories;
 using WorldTracker.Domain.IServices;
-using WorldTracker.Domain.ValueObjects;
 using WorldTracker.Infra.DTOs;
 
 namespace WorldTracker.Infra.Services
@@ -32,6 +32,19 @@ namespace WorldTracker.Infra.Services
             await _countryRepository.SaveManyAsync(countries);
 
             return countries;
+        }
+
+        public async Task<PagedResultDto<Country>> GetPagedCountriesAsync(PagedRequestDto request)
+        {
+            if (await _countryRepository.HasAnyAsync())
+                return await _countryRepository.GetPagedAsync(request);
+
+            var countryDtos = await GetCountriesAsync();
+            var countries = countryDtos.Select(MapToEntity).ToList();
+
+            await _countryRepository.SaveManyAsync(countries);
+
+            return await _countryRepository.GetPagedAsync(request);
         }
 
         private async Task<CountryResponseDto[]> GetCountriesAsync()

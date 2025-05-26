@@ -13,13 +13,13 @@
 .dot-falling {
   position: relative;
   left: -9999px;
-  top: 0px;
+  top: 10px;
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #034c8c;
-  color: #034c8c;
-  box-shadow: 9999px 0 0 0 #034c8c;
+  background-color: #1B98E0;
+  color: #1B98E0;
+  box-shadow: 9999px 0 0 0 #1B98E0;
   animation: dot-falling 1s infinite linear;
   animation-delay: 0.1s;
 }
@@ -36,8 +36,8 @@
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #034c8c;
-  color: #034c8c;
+  background-color: #1B98E0;
+  color: #1B98E0;
   animation: dot-falling-before 1s infinite linear;
   animation-delay: 0s;
 }
@@ -46,8 +46,8 @@
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #034c8c;
-  color: #034c8c;
+  background-color: #1B98E0;
+  color: #1B98E0;
   animation: dot-falling-after 1s infinite linear;
   animation-delay: 0.2s;
 }
@@ -59,7 +59,7 @@
   25%,
   50%,
   75% {
-    box-shadow: 9999px 0 0 0 #034c8c;
+    box-shadow: 9999px 0 0 0 #1B98E0;
   }
   100% {
     box-shadow: 9999px 15px 0 0 #00000000;
@@ -73,7 +73,7 @@
   25%,
   50%,
   75% {
-    box-shadow: 9984px 0 0 0 #034c8c;
+    box-shadow: 9984px 0 0 0 #1B98E0;
   }
   100% {
     box-shadow: 9984px 15px 0 0 #00000000;
@@ -86,7 +86,7 @@
   25%,
   50%,
   75% {
-    box-shadow: 10014px 0 0 0 #034c8c;
+    box-shadow: 10014px 0 0 0 #1B98E0;
   }
   100% {
     box-shadow: 10014px 15px 0 0 #00000000;

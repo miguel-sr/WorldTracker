@@ -25,7 +25,7 @@ namespace WorldTracker.Infra.Services
         public async Task<Weather> GetWeather(Coordinates coordinates)
         {
             // Set units and lang by user preference
-            var url = $"data/2.5/weather?lat={coordinates.Latitude}&lon={coordinates.Longitude}&units=metric&lang=en&appid={_apiKey}";
+            var url = $"data/2.5/weather?lat={coordinates.Latitude}&lon={coordinates.Longitude}&units=metric&lang=pt_br&appid={_apiKey}";
 
             try
             {
@@ -42,9 +42,12 @@ namespace WorldTracker.Infra.Services
 
                 return new Weather
                 {
-                    Location = dto.Name,
-                    Temperature = dto.Main.Temp,
-                    Description = dto.Weather.FirstOrDefault()?.Description
+                    Description = dto.CurrentWeather.Description,
+                    Icon = dto.CurrentWeather.Icon,
+                    Temperature = dto.Metrics.Temp,
+                    FeelsLike = dto.Metrics.Temp,
+                    Humidity = dto.Metrics.Humidity,
+                    WindSpeed = dto.Wind.Speed
                 };
             }
             catch (HttpRequestException ex)
