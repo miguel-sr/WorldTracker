@@ -24,4 +24,8 @@
     <ProjectReference Include="..\WorldTracker.Infra\WorldTracker.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

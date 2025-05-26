@@ -34,6 +34,8 @@ namespace WorldTracker.Infra.Services
 
         public async Task UpdateAsync(User user)
         {
+            user.Password = PasswordUtils.GenerateHash(user.Password);
+
             await repository.UpdateAsync(user);
         }
 
