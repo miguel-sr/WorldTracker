@@ -20,7 +20,7 @@ jobs:
 
     - name: Build and tag image with Docker Compose
       working-directory: ./src
-      run: docker-compose build
+      run: docker compose build
 
     - name: Tag image for Docker Hub
       run: docker tag world-tracker devmiguelsr/world-tracker:latest
