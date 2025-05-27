@@ -14,18 +14,18 @@ import { useFavorites } from "@/common/hooks/useFavorites";
 import Notistack from "@/lib/Notistack";
 import CountryFilter from "./components/CountryFilter";
 import CountryWithWeatherCard from "./components/CountryWithWeatherCard";
+import CountryWithWeatherSkeleton from "./components/CountryWithWeatherSkeleton";
 
 const PAGE_SIZE = 6;
 
 export default function CountriesWithWeather() {
   const navigate = useNavigate();
-  const { isAuthenticated, userId } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const { favorites } = useFavorites();
   const { showLoading } = useRequestHandler();
 
   const {
     items: countries,
-    currentToken,
     nextToken,
     previousTokens,
     loadPage,
@@ -33,23 +33,24 @@ export default function CountriesWithWeather() {
     goPrev,
     filter,
     setFilter,
+    loading,
   } = usePagination<ICountryWithWeather>((token, filter) =>
     WeatherRepository().GetPaged(PAGE_SIZE, token, filter)
   );
 
   useEffect(() => {
-    showLoading(() => loadPage(currentToken));
-  }, [currentToken]);
+    loadPage(null);
+  }, []);
 
   function syncFavorites() {
-    if (!isAuthenticated || !userId) {
+    if (!isAuthenticated || !user) {
       navigate("/login");
       return;
     }
 
     showLoading(async () => {
       await UserFavoritesRepository()
-        .SyncFavoritesByUser(userId, favorites)
+        .SyncFavoritesByUser(user.id, favorites)
         .then(() => {
           Notistack.showSuccessMessage("Favoritos sincronizados.");
         });
@@ -61,9 +62,13 @@ export default function CountriesWithWeather() {
       <CountryFilter filter={filter} setFilter={setFilter} />
       <section className="my-10 mx-3">
         <div className="flex flex-wrap justify-center gap-y-10 gap-x-6">
-          {countries.map((c) => (
-            <CountryWithWeatherCard key={c.name} country={c} />
-          ))}
+          {loading
+            ? Array.from({ length: PAGE_SIZE }).map((_, i) => (
+                <CountryWithWeatherSkeleton key={i} />
+              ))
+            : countries.map((c) => (
+                <CountryWithWeatherCard key={c.name} country={c} />
+              ))}
         </div>
 
         <div className="flex justify-center gap-4 mt-8 relative">

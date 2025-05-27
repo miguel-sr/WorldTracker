@@ -33,10 +33,27 @@ resource "aws_dynamodb_table" "user_favorites" {
 resource "aws_dynamodb_table" "countries" {
   name         = "Countries"
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "CountryCode"
+  hash_key     = "Code"
 
   attribute {
-    name = "CountryCode"
+    name = "Code"
     type = "S"
+  }
+
+  attribute {
+    name = "Category"
+    type = "S"
+  }
+
+  attribute {
+    name = "NameLower"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "Category-NameLower-index"
+    hash_key        = "Category"
+    range_key       = "NameLower"
+    projection_type = "ALL"
   }
 }

@@ -12,17 +12,17 @@ import CountryWithWeatherCard from "./CountriesWithWeather/components/CountryWit
 
 export default function Favorites() {
   const { setFavorites } = useFavorites();
-  const { userId } = useAuth();
+  const { user } = useAuth();
   const { showLoading } = useRequestHandler();
 
   useEffect(() => {
-    if (!userId) return;
+    if (!user) return;
 
     showLoading(async () => {
-      const favorites = await UserFavoritesRepository().GetAllByUser(userId);
+      const favorites = await UserFavoritesRepository().GetAllByUser(user.id);
       setFavorites(favorites);
     });
-  }, [userId]);
+  }, [user]);
 
   const countries = useFavoriteCountries();
 
@@ -30,7 +30,7 @@ export default function Favorites() {
 
   return (
     <section className="my-10 mx-3">
-      <h2 className="text-2xl font-semibold text-center mb-6">
+      <h2 className="text-2xl font-semibold text-center text-dark-gray">
         Seus Favoritos
       </h2>
       <Swiper

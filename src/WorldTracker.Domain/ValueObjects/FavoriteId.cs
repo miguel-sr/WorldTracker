@@ -32,5 +32,9 @@
 
             return new FavoriteId(parts[0], parts[1]);
         }
+
+        public static implicit operator string(FavoriteId favoriteId) => favoriteId.ToString();
+
+        public static explicit operator FavoriteId(string value) => Parse(value);
     }
 }

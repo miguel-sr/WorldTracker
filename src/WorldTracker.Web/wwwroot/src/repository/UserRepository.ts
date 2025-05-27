@@ -11,30 +11,17 @@ export interface IAuthData {
   password: string;
 }
 
+export interface ICreateUserData {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export default function UserRepository() {
-  async function GetAllUsers(): Promise<IUser[]> {
-    const response = await API.get("/user");
-
-    return response.data;
-  }
-
-  async function GetUserById(id: string): Promise<IUser> {
-    const response = await API.get(`/user/${id}`);
-    return response.data;
-  }
-
-  async function CreateUser(user: IUser): Promise<IUser> {
+  async function CreateUser(user: ICreateUserData): Promise<IUser> {
     const response = await API.post("/user", user);
 
     return response.data;
-  }
-
-  async function UpdateUser(user: IUser): Promise<void> {
-    await API.put("/user", user);
-  }
-
-  async function DeleteUser(id: string): Promise<void> {
-    await API.delete(`/user/${id}`);
   }
 
   async function AuthenticateUser(authData: IAuthData): Promise<string> {
@@ -44,11 +31,7 @@ export default function UserRepository() {
   }
 
   return {
-    GetAllUsers,
-    GetUserById,
     CreateUser,
-    UpdateUser,
-    DeleteUser,
-    AuthenticateUser
+    AuthenticateUser,
   };
 }

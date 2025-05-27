@@ -1,4 +1,7 @@
-﻿namespace WorldTracker.Domain.ValueObjects
+﻿using System.Globalization;
+using WorldTracker.Common.Extensions;
+
+namespace WorldTracker.Domain.ValueObjects
 {
     public class Coordinates
     {
@@ -22,20 +25,31 @@
             Longitude = longitude;
         }
 
-        public override string ToString() => $"{Latitude}, {Longitude}";
+        public override string ToString() => string.Format(CultureInfo.InvariantCulture, "{0}, {1}", Latitude, Longitude);
 
         public static Coordinates Parse(string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException("Input string cannot be null or empty.");
+
             var parts = value.Split(", ");
 
-            if (parts.Length != 2 ||
-                !double.TryParse(parts[0], out var lat) ||
-                !double.TryParse(parts[1], out var lon))
-            {
+            if (parts.Length != 2 || !parts[0].TryParseInvariant(out double lat) || !parts[1].TryParseInvariant(out double lon))
                 throw new FormatException("Invalid coordinate format. Expected format: 'lat, lon'");
-            }
 
             return new Coordinates(lat, lon);
         }
+
+        public static implicit operator string(Coordinates coordinates) => coordinates.ToString();
+
+        public static implicit operator Coordinates(double[] values)
+        {
+            if (values == null || values.Length < 2)
+                return new Coordinates(0, 0);
+
+            return new Coordinates(values[0], values[1]);
+        }
+
+        public static explicit operator Coordinates(string value) => Parse(value);
     }
 }

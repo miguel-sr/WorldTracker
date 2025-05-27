@@ -4,6 +4,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
+import Register from "@/pages/Register";
 import Homepage from "../pages/Homepage";
 import Login from "../pages/Login";
 
@@ -12,6 +13,7 @@ const Routes = createBrowserRouter(
     <Route path="/">
       <Route index element={<Homepage />} />
       <Route path="login" element={<Login />} />
+      <Route path="register" element={<Register />} />
     </Route>
   )
 );

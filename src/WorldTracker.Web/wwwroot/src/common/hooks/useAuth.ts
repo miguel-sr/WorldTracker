@@ -4,17 +4,25 @@ import { useCallback, useEffect, useState } from "react";
 
 interface JwtPayload {
   nameid: string;
+  email: string;
+  unique_name: string;
   exp: number;
 }
 
+interface IUser {
+  id: string;
+  email: string;
+  name: string;
+}
+
 export function useAuth() {
-  const [userId, setUserId] = useState<string | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const loadToken = useCallback(() => {
     const token = localStorage.getItem(TOKEN_KEY);
     if (!token) {
-      setUserId(null);
+      setUser(null);
       setIsAuthenticated(false);
       return;
     }
@@ -24,15 +32,20 @@ export function useAuth() {
 
       if (decoded.exp < currentTime) {
         localStorage.removeItem(TOKEN_KEY);
-        setUserId(null);
+        setUser(null);
         setIsAuthenticated(false);
       } else {
-        setUserId(decoded.nameid);
+        setUser({
+          id: decoded.nameid,
+          email: decoded.email,
+          name: decoded.unique_name,
+        });
+
         setIsAuthenticated(true);
       }
     } catch {
       localStorage.removeItem(TOKEN_KEY);
-      setUserId(null);
+      setUser(null);
       setIsAuthenticated(false);
     }
   }, []);
@@ -43,13 +56,13 @@ export function useAuth() {
 
   function logout() {
     localStorage.removeItem(TOKEN_KEY);
-    setUserId(null);
+    setUser(null);
     setIsAuthenticated(false);
     location.replace("/");
   }
 
   return {
-    userId,
+    user,
     isAuthenticated,
     loadToken,
     logout,

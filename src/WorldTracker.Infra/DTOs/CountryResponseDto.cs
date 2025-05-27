@@ -48,16 +48,7 @@ namespace WorldTracker.Infra.DTOs
         public required double[] Latlng { get; set; }
 
         [JsonIgnore]
-        public Coordinates Coordinates
-        {
-            get
-            {
-                if (Latlng is null || Latlng.Length < 2)
-                    return new Coordinates(0, 0);
-
-                return new Coordinates(Latlng[0], Latlng[1]);
-            }
-        }
+        public Coordinates Coordinates => Latlng;
 
     }
 

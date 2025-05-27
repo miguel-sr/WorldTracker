@@ -48,11 +48,11 @@ namespace WorldTracker.Domain.Entities
         [DynamoDBIgnore]
         public Coordinates Coordinates
         {
-            get => Coordinates.Parse(CoordinatesRaw );
-            set => CoordinatesRaw  = value.ToString();
+            get => (Coordinates)CoordinatesRaw;
+            set => CoordinatesRaw = value;
         }
     }
-    
+
     public class CurrencyInfo
     {
         public required string Name { get; set; }

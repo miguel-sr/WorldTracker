@@ -1,5 +1,4 @@
 import { useState } from "react";
-import useRequestHandler from "./useRequestHandler";
 
 export function usePagination<T>(
   fetchPage: (
@@ -10,8 +9,6 @@ export function usePagination<T>(
     paginationToken: string | null;
   }>
 ) {
-  const { showLoading } = useRequestHandler();
-
   const [items, setItems] = useState<T[]>([]);
   const [currentToken, setCurrentToken] = useState<string | null>(null);
   const [previousTokens, setPreviousTokens] = useState<string[]>([]);
@@ -22,13 +19,13 @@ export function usePagination<T>(
   async function loadPage(token: string | null, newFilter?: string) {
     setLoading(true);
 
-    showLoading(async () => {
-      if (newFilter !== undefined && newFilter !== filter) {
-        loadWithNewFilter(newFilter);
-      } else {
-        loadWithCurrentFilter(token);
-      }
-    });
+    if (newFilter !== undefined && newFilter !== filter) {
+      await loadWithNewFilter(newFilter);
+    } else {
+      await loadWithCurrentFilter(token);
+    }
+
+    setLoading(false);
   }
 
   async function loadWithNewFilter(newFilter: string) {

@@ -10,7 +10,7 @@ export default function Navbar({
 }: {
   position?: "absolute" | "relative";
 }) {
-  const { isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -27,10 +27,10 @@ export default function Navbar({
           aria-hidden={!menuOpen}
         >
           <Navlink text="Início" href="/" />
-          {isAuthenticated ? (
+          {isAuthenticated && user ? (
             <>
               <Navlink text="Favoritos" href="/favorites" />
-              <Navlink text="Perfil" href="/profile" />
+              <Navlink text={user.name} />
               <Navlink text="Sair" onClick={logout} />
             </>
           ) : (
