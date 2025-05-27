@@ -3,6 +3,7 @@ name: CI Pipeline
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -17,6 +18,6 @@ jobs:
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       
     - name: Build the Docker image
-      run: docker build -t devmiguelsr/cicd-pipeline .
+      run: docker build -t devmiguelsr/world-tracker .
     - name: Push to Dockerhub
-      run: docker push devmiguelsr/cicd-pipeline:latest
+      run: docker push devmiguelsr/world-tracker:latest
