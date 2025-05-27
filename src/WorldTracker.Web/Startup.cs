@@ -60,6 +60,8 @@ namespace WorldTracker.Web
                 });
             }
 
+            app.UseStaticFiles();
+
             app.UseExceptionHandler(options => { });
 
             app.UseRouting();
@@ -68,7 +70,16 @@ namespace WorldTracker.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints => 
+            { 
+                endpoints.MapControllers();
+
+                endpoints.MapFallback(context =>
+                {
+                    context.Response.ContentType = "text/html";
+                    return context.Response.SendFileAsync(Path.Combine(env.WebRootPath, "index.html"));
+                });
+            });
         }
 
         private void ConfigureDependencyInjections(IServiceCollection services)
