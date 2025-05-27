@@ -1,4 +1,4 @@
-import { ICountryWithWeather } from "@/repository/CountryRepository";
+import { ICountryWithWeather } from "@/repository/CountryWithWeatherRepository";
 import { CountryDetails } from "./CountryDetails";
 import { CountryHeader } from "./CountryHeader";
 import { CountryWeatherInfo } from "./CountryWeatherInfo";
@@ -9,7 +9,7 @@ export default function CountryWithWeatherCard({
   country: ICountryWithWeather;
 }) {
   return (
-    <section className="w-full max-w-[600px] rounded-xl shadow-md p-6 mx-auto bg-gray-50 flex flex-col gap-6">
+    <section className="w-full max-w-[600px] rounded-xl shadow-md p-6 bg-gray-50 flex flex-col gap-6 relative">
       <CountryHeader
         name={country.name}
         code={country.code}

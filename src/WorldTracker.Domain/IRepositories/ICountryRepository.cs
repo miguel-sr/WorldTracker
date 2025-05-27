@@ -9,6 +9,8 @@ namespace WorldTracker.Domain.IRepositories
 
         Task<PagedResultDto<Country>> GetPagedAsync(PagedRequestDto request);
 
+        Task<IEnumerable<Country>> GetByCodesAsync(string[] codes);
+
         Task SaveManyAsync(IEnumerable<Country> countries);
 
         Task<bool> HasAnyAsync();

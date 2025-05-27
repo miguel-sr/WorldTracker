@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WorldTracker.Domain.Entities;
 using WorldTracker.Domain.IRepositories;
-using WorldTracker.Domain.ValueObjects;
+using WorldTracker.Web.DTOs;
 
 namespace WorldTracker.Web.Controllers
 {
@@ -9,34 +8,18 @@ namespace WorldTracker.Web.Controllers
     [Route("api/v1/[controller]")]
     public class UserFavoriteController(IUserFavoriteService service) : ControllerBase
     {
-        [HttpPost]
-        public async Task<IActionResult> CreateUserFavorite([FromBody] UserFavorite userFavorite)
-        {
-            await service.CreateAsync(userFavorite);
-
-            return CreatedAtAction(nameof(GetByUser), new { userId = userFavorite.UserId, favoriteId = userFavorite.FavoriteId }, userFavorite);
-        }
-
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetAllByUser(string userId)
         {
             var userFavorites = await service.GetAllByUserAsync(userId);
 
-            return Ok(userFavorites);
+            return Ok(userFavorites.Select(f => f.FavoriteId.ToString()).OrderDescending());
         }
 
-        [HttpGet("{userId}/{favoriteId}")]
-        public async Task<IActionResult> GetByUser(string userId, string favoriteId)
+        [HttpPut]
+        public async Task<IActionResult> SyncFavorites([FromBody] SyncUserFavoritesDto dto)
         {
-            var userFavorites = await service.GetByUserAsync(userId, FavoriteId.Parse(favoriteId));
-
-            return Ok(userFavorites);
-        }
-
-        [HttpDelete("{userId}/{favoriteId}")]
-        public async Task<IActionResult> DeleteUserFavorite(string userId, string favoriteId)
-        {
-            await service.DeleteAsync(userId, FavoriteId.Parse(favoriteId));
+            await service.SyncFavoritesAsync(dto.UserId, dto.FavoriteIds);
 
             return NoContent();
         }

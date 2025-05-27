@@ -17,6 +17,10 @@ namespace WorldTracker.Domain.Entities
         public required string Name { get; set; }
 
         [DynamoDBProperty]
+        [JsonIgnore]
+        public string NameLower { get; set; }
+
+        [DynamoDBProperty]
         public string Category { get; set; } = "Country";
 
         [DynamoDBProperty]
@@ -48,7 +52,7 @@ namespace WorldTracker.Domain.Entities
             set => CoordinatesRaw  = value.ToString();
         }
     }
-
+    
     public class CurrencyInfo
     {
         public required string Name { get; set; }

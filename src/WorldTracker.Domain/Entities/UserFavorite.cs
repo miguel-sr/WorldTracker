@@ -23,12 +23,6 @@ namespace WorldTracker.Domain.Entities
         }
 
         [DynamoDBProperty]
-        public string FavoriteType { get; set; }
-
-        [DynamoDBProperty]
-        public string Name { get; set; }
-
-        [DynamoDBProperty]
         public DateTime DateAdded { get; private set; } = DateTime.UtcNow;
     }
 }

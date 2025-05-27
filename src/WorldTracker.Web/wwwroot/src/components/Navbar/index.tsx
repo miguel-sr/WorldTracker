@@ -1,6 +1,6 @@
-import { TOKEN_KEY } from "@/common/Constants";
+import { useAuth } from "@/common/hooks/useAuth";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Logo } from "../Logo";
 import { Navlink } from "./components/Navlink";
 import { Toggler } from "./components/Toggler";
@@ -10,17 +10,8 @@ export default function Navbar({
 }: {
   position?: "absolute" | "relative";
 }) {
-  const [userLogged, setUserLogged] = useState<boolean>(false);
+  const { isAuthenticated, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    setUserLogged(localStorage.getItem(TOKEN_KEY) != null);
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem(TOKEN_KEY);
-    setUserLogged(false);
-  };
 
   return (
     <nav className={clsx("absolute p-2 z-10 w-full bg-white", position)}>
@@ -36,11 +27,11 @@ export default function Navbar({
           aria-hidden={!menuOpen}
         >
           <Navlink text="Início" href="/" />
-          {userLogged ? (
+          {isAuthenticated ? (
             <>
               <Navlink text="Favoritos" href="/favorites" />
               <Navlink text="Perfil" href="/profile" />
-              <Navlink text="Sair" onClick={handleLogout} />
+              <Navlink text="Sair" onClick={logout} />
             </>
           ) : (
             <>

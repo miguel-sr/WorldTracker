@@ -1,15 +1,34 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 
-const AppContext = createContext({
+type AppContextType = {
+  loadingState: boolean;
+  setLoadingState: Dispatch<SetStateAction<boolean>>;
+  isUserAuthenticated: boolean;
+  setIsUserAuthenticated: Dispatch<SetStateAction<boolean>>;
+  favorites: string[];
+  setFavorites: Dispatch<SetStateAction<string[]>>;
+};
+
+const AppContext = createContext<AppContextType>({
   loadingState: false,
-  setLoadingState: (_state: boolean) => {},
+  setLoadingState: () => {},
   isUserAuthenticated: false,
-  setIsUserAuthenticated: (_state: boolean) => {},
+  setIsUserAuthenticated: () => {},
+  favorites: [],
+  setFavorites: () => {},
 });
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [loadingState, setLoadingState] = useState<boolean>(false);
-  const [isUserAuthenticated, setIsUserAuthenticated] = useState<boolean>(false);
+  const [loadingState, setLoadingState] = useState(false);
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
+  const [favorites, setFavorites] = useState<string[]>([]);
 
   return (
     <AppContext.Provider
@@ -18,6 +37,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setLoadingState,
         isUserAuthenticated,
         setIsUserAuthenticated,
+        favorites,
+        setFavorites,
       }}
     >
       {children}

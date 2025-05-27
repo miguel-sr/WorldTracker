@@ -47,6 +47,11 @@ namespace WorldTracker.Infra.Services
             return await _countryRepository.GetPagedAsync(request);
         }
 
+        public async Task<IEnumerable<Country>> GetCountriesByCodesAsync(string[] codes)
+        {
+            return await _countryRepository.GetByCodesAsync(codes);
+        }
+
         private async Task<CountryResponseDto[]> GetCountriesAsync()
         {
             try
@@ -78,6 +83,7 @@ namespace WorldTracker.Infra.Services
             return new Country
             {
                 Name = dto.Name.Common,
+                NameLower = dto.Name.Common.ToLowerInvariant(),
                 Code = dto.IsoAlpha3Code,
                 Region = dto.Region,
                 Subregion = dto.Subregion,

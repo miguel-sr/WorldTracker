@@ -8,5 +8,7 @@ namespace WorldTracker.Domain.IServices
         Task<IEnumerable<Country>> GetAllCountriesAsync();
 
         Task<PagedResultDto<Country>> GetPagedCountriesAsync(PagedRequestDto request);
+
+        Task<IEnumerable<Country>> GetCountriesByCodesAsync(string[] codes);
     }
 }

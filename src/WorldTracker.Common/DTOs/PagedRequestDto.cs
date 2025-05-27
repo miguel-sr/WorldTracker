@@ -5,5 +5,7 @@
         public int Size { get; set; } = 10;
 
         public string? PaginationToken { get; set; }
+
+        public string? Filter { get; set; }
     }
 }

@@ -30,6 +30,7 @@ export interface ICountryWithWeather {
   code: string;
   flag: IFlag;
   population: number;
+  category: string;
   currency: ICurrency;
   languages: string[];
   coordinates: ICoordinates;
@@ -41,19 +42,29 @@ export interface IPaginatedCountriesWithWeather {
   items: ICountryWithWeather[];
 }
 
-export default function WeatherRepository() {
-  async function GetCountriesWithWeather(
+export default function CountryWithWeatherRepository() {
+  async function GetPaged(
     pageSize: number,
-    paginationToken: string | null
+    paginationToken: string | null,
+    filter?: string
   ): Promise<IPaginatedCountriesWithWeather> {
-    const response = await API.get("/country/paged", {
-      params: { pageSize, paginationToken },
+    const response = await API.get("/countryWithWeather/paged", {
+      params: { pageSize, paginationToken, filter },
+    });
+
+    return response.data;
+  }
+
+  async function GetByCodes(codes: string[]): Promise<ICountryWithWeather[]> {
+    const response = await API.get("/countryWithWeather/byCodes", {
+      params: { codes: codes.join(",") },
     });
 
     return response.data;
   }
 
   return {
-    GetCountriesWithWeather,
+    GetPaged,
+    GetByCodes,
   };
 }

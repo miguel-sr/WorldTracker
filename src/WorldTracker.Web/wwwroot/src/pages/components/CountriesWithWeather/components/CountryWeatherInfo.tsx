@@ -1,4 +1,4 @@
-import { ICountryWithWeather } from "@/repository/CountryRepository";
+import { ICountryWithWeather } from "@/repository/CountryWithWeatherRepository";
 
 export function CountryWeatherInfo({
   weather,

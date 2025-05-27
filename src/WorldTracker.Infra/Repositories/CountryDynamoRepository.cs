@@ -20,34 +20,76 @@ namespace WorldTracker.Infra.Repositories
         {
             var startKey = PaginationTokenHelper.Decode(request.PaginationToken);
 
+            var expressionAttributeValues = new Dictionary<string, AttributeValue>
+            {
+                [":category"] = new AttributeValue { S = "Country" }
+            };
+
+            string keyConditionExpression = "Category = :category";
+            Dictionary<string, string>? expressionAttributeNames = null;
+
+            if (!string.IsNullOrWhiteSpace(request.Filter))
+            {
+                keyConditionExpression += " AND begins_with(#nameLower, :namePrefix)";
+                expressionAttributeValues[":namePrefix"] = new AttributeValue { S = request.Filter.ToLowerInvariant() };
+                expressionAttributeNames = new Dictionary<string, string>
+                {
+                    ["#nameLower"] = "NameLower"
+                };
+            }
+
             var query = new QueryRequest
             {
                 TableName = Country.TABLE_NAME,
-                IndexName = "Category-Name-index",
-                KeyConditionExpression = "Category = :category",
-                ExpressionAttributeValues = new Dictionary<string, AttributeValue>
-                {
-                    { ":category", new AttributeValue { S = "Country" } }
-                },
+                IndexName = "Category-NameLower-index",
+                KeyConditionExpression = keyConditionExpression,
+                ExpressionAttributeValues = expressionAttributeValues,
+                ExpressionAttributeNames = expressionAttributeNames,
                 Limit = request.Size,
                 ExclusiveStartKey = startKey,
-                ScanIndexForward = true
+                ScanIndexForward = true,
             };
 
             var response = await client.QueryAsync(query);
 
             var countries = response.Items
-                 .Select(Document.FromAttributeMap)
-                 .Select(context.FromDocument<Country>);
-
-            var lastEvaluatedKey = PaginationTokenHelper.Encode(response.LastEvaluatedKey);
+                .Select(Document.FromAttributeMap)
+                .Select(context.FromDocument<Country>);
 
             return new PagedResultDto<Country>
             {
                 Items = countries,
-                PaginationToken = lastEvaluatedKey
+                PaginationToken = PaginationTokenHelper.Encode(response.LastEvaluatedKey)
             };
         }
+
+        public async Task<IEnumerable<Country>> GetByCodesAsync(string[] codes)
+        {
+            var keys = codes.Select(code => new Dictionary<string, AttributeValue>
+            {
+                [nameof(Country.Code)] = new AttributeValue { S = code }
+            }).ToList();
+
+            var batchRequest = new BatchGetItemRequest
+            {
+                RequestItems = new Dictionary<string, KeysAndAttributes>
+                {
+                    [Country.TABLE_NAME] = new KeysAndAttributes
+                    {
+                        Keys = keys
+                    }
+                }
+            };
+
+            var response = await client.BatchGetItemAsync(batchRequest);
+
+            var countries = response.Responses[Country.TABLE_NAME]
+                .Select(Document.FromAttributeMap)
+                .Select(context.FromDocument<Country>);
+
+            return countries;
+        }
+
 
         public async Task<bool> HasAnyAsync()
         {

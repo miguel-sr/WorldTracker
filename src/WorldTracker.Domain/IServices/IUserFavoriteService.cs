@@ -9,7 +9,7 @@ namespace WorldTracker.Domain.IRepositories
 
         Task<IEnumerable<UserFavorite>> GetAllByUserAsync(string userId);
 
-        Task<UserFavorite?> GetByUserAsync(string userId, FavoriteId favoriteId);
+        Task SyncFavoritesAsync(string userId, string[] favorites);
 
         Task DeleteAsync(string userId, FavoriteId favoriteId);
     }

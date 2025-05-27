@@ -11,7 +11,9 @@ namespace WorldTracker.Web.DTOs
 
         public required Flag Flag { get; set; }
 
-        public required long Population { get; set; }
+        public required int Population { get; set; }
+
+        public required string Category { get; set; }
 
         public CurrencyInfo? Currency { get; set; }
 
@@ -29,10 +31,11 @@ namespace WorldTracker.Web.DTOs
                 Code = country.Code,
                 Flag = country.Flag,
                 Population = country.Population,
+                Category = country.Category,
                 Languages = country.Languages?.Select(x => $"{x.Value} ({x.Key.ToUpper()})").ToArray() ?? [],
                 Currency = country.CurrencyInfo,
                 Coordinates = country.Coordinates,
-                Weather = weather,
+                Weather = weather
             };
         }
     }

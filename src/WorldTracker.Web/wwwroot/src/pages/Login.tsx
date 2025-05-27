@@ -1,4 +1,5 @@
 import { TOKEN_KEY } from "@/common/Constants";
+import { useAuth } from "@/common/hooks/useAuth";
 import useRequestHandler from "@/common/hooks/useRequestHandler";
 import Button from "@/components/Button";
 import Footer from "@/components/Footer";
@@ -16,13 +17,16 @@ const INITIAL_LOGIN_DATA: IAuthData = {
 
 export default function Login() {
   const { showLoading } = useRequestHandler();
+  const { loadToken } = useAuth();
   const [loginData, setLoginData] = useState<IAuthData>(INITIAL_LOGIN_DATA);
 
   function authenticateUser() {
     showLoading(async () => {
       const token = await UserRepository().AuthenticateUser(loginData);
-
       localStorage.setItem(TOKEN_KEY, token);
+
+      loadToken();
+
       location.href = "/";
     });
   }
