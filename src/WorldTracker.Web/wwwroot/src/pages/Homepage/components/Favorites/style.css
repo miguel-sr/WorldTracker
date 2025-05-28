@@ -1,0 +1,6 @@
+@media (max-width: 767px) {
+  .swiper-favorites .swiper-button-prev,
+  .swiper-favorites .swiper-button-next {
+    display: none !important;
+  }
+}

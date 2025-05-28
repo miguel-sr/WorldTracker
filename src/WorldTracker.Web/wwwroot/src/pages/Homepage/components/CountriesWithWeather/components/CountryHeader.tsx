@@ -20,7 +20,7 @@ export function CountryHeader({
 
   return (
     <div className="flex items-center justify-between">
-      <div className="flex items-center gap-x-3 max-w-[90%]">
+      <div className="flex items-center gap-x-3 max-w-[80%] md:max-w-[90%]">
         {isAuthenticated && (
           <button
             onClick={() => toggleFavorite(favoriteId)}
