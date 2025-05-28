@@ -16,6 +16,8 @@ services:
     build:
       context: .
       dockerfile: WorldTracker.Web/Dockerfile
+      args:
+        VITE_BASE_URL: ${VITE_BASE_URL}
     ports:
       - "5000:80"
     environment:
@@ -30,5 +32,6 @@ services:
       - WT_OPEN_WEATHER_API_KEY=${WT_OPEN_WEATHER_API_KEY}
       - WT_OPEN_WEATHER_BASE_URL=${WT_OPEN_WEATHER_BASE_URL}
       - WT_REST_COUNTRY_BASE_URL=${WT_REST_COUNTRY_BASE_URL}
+    restart: always
     depends_on:
       - terraform

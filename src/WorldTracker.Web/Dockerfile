@@ -7,6 +7,9 @@ EXPOSE 8081
 
 # Fase de build do React
 FROM node:20-alpine AS node-build
+
+ARG VITE_BASE_URL
+
 WORKDIR /app
 COPY WorldTracker.Web/wwwroot/package*.json ./
 RUN npm install

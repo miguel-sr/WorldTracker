@@ -19,7 +19,7 @@ jobs:
 
     - name: Run Docker Container
       run: |
-        sudo docker run -d -p 80:80 --name world-tracker \
+        sudo docker run -d -p 8080:8080 --name world-tracker \
           -e WT_JWT_SECRET='${{ secrets.WT_JWT_SECRET }}' \
           -e AWS_ACCESS_KEY_ID='${{ secrets.AWS_ACCESS_KEY_ID }}' \
           -e AWS_SECRET_ACCESS_KEY='${{ secrets.AWS_SECRET_ACCESS_KEY }}' \
