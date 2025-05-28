@@ -26,7 +26,7 @@ export default function CountryFilter({
         Busque por seu país
       </h2>
       <form
-        className="max-w-md mx-auto flex items-center border border-gray-300 rounded-lg bg-white shadow-sm focus-within:ring-2 focus-within:ring-sky-500 px-4 py-2 transition-shadow"
+        className="max-w-md mx-auto flex items-center gap-2 border border-gray-300 rounded-lg bg-white shadow-sm focus-within:ring-2 focus-within:ring-sky-500 px-4 py-2 transition-shadow"
         role="search"
         onSubmit={onSubmit}
       >
@@ -36,11 +36,11 @@ export default function CountryFilter({
           value={internalFilter}
           onChange={(e) => setInternalFilter(e.target.value)}
           placeholder="Digite o nome do país"
-          className="flex-grow text-gray-700 placeholder-gray-400 bg-transparent focus:outline-none"
+          className="flex-grow min-w-0 text-gray-700 placeholder-gray-400 bg-transparent focus:outline-none"
         />
         <button
           type="submit"
-          className="ml-3 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg px-4 py-2 transition-colors"
+          className="bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg px-4 py-2 transition-colors"
           aria-label="Buscar clima"
         >
           Buscar

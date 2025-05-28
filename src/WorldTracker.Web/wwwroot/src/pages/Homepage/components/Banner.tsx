@@ -14,7 +14,7 @@ export default function Banner() {
           Bem-vindo ao <Logo size="lg" />
         </h1>
         <p className="my-6 text-md md:text-xl leading-relaxed">
-          Consulte o clima atual de qualquer cidade do mundo, explore dados
+          Consulte o clima atual de qualquer lugar do mundo, explore dados
           completos de países e salve seus favoritos com praticidade.
         </p>
         <div className="flex flex-wrap justify-center md:justify-start gap-4">

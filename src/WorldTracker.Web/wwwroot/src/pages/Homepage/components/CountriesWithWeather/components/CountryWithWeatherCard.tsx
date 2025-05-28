@@ -9,17 +9,17 @@ export default function CountryWithWeatherCard({
   country: ICountryWithWeather;
 }) {
   return (
-    <section className="w-full max-w-[600px] rounded-xl shadow-md p-6 bg-gray-50 flex flex-col gap-6 relative">
+    <section className="w-full max-w-[600px] rounded-2xl shadow-md p-4 sm:p-6 bg-gray-50 flex flex-col gap-4 sm:gap-6 relative transition-all">
       <CountryHeader
         name={country.name}
         code={country.code}
         flag={country.flag}
       />
-      <div className="flex flex-col md:flex-row justify-between gap-6">
-        <div className="w-1/2">
+      <div className="flex flex-col md:flex-row md:justify-between gap-4 sm:gap-6">
+        <div className="md:w-1/2">
           <CountryWeatherInfo weather={country.weather} />
         </div>
-        <div className="w-1/2 pl-5">
+        <div className="md:w-1/2 md:pl-5">
           <CountryDetails
             population={country.population}
             currency={country.currency}

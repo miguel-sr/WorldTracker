@@ -61,7 +61,7 @@ export default function CountriesWithWeather() {
     <>
       <CountryFilter filter={filter} setFilter={setFilter} />
       <section className="my-10 mx-3">
-        <div className="flex flex-wrap justify-center gap-y-10 gap-x-6">
+        <div className="grid gap-6 justify-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {loading
             ? Array.from({ length: PAGE_SIZE }).map((_, i) => (
                 <CountryWithWeatherSkeleton key={i} />
@@ -71,11 +71,11 @@ export default function CountriesWithWeather() {
               ))}
         </div>
 
-        <div className="flex justify-center gap-4 mt-8 relative">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8">
           <button
             onClick={goPrev}
             disabled={previousTokens.length === 0}
-            className="px-4 py-2 rounded bg-sky-blue text-white disabled:opacity-50"
+            className="w-full sm:w-auto px-4 py-2 rounded bg-sky-blue text-white disabled:opacity-50"
           >
             Anterior
           </button>
@@ -83,7 +83,7 @@ export default function CountriesWithWeather() {
           {isAuthenticated && (
             <button
               onClick={syncFavorites}
-              className="px-4 py-2 rounded bg-sky-600 text-white disabled:opacity-50 right-0"
+              className="w-full sm:w-auto px-4 py-2 rounded bg-sky-600 text-white disabled:opacity-50"
             >
               Sincronizar Favoritos
             </button>
@@ -92,7 +92,7 @@ export default function CountriesWithWeather() {
           <button
             onClick={goNext}
             disabled={!nextToken}
-            className="px-4 py-2 rounded bg-sky-blue text-white disabled:opacity-50"
+            className="w-full sm:w-auto px-4 py-2 rounded bg-sky-blue text-white disabled:opacity-50"
           >
             Próxima
           </button>
