@@ -9,7 +9,6 @@ EXPOSE 8081
 FROM node:20-alpine AS node-build
 WORKDIR /app
 COPY WorldTracker.Web/wwwroot/package*.json ./
-COPY WorldTracker.Web/wwwroot/.env ./
 RUN npm install
 COPY WorldTracker.Web/wwwroot ./
 RUN npm run build

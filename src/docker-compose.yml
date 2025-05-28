@@ -6,8 +6,10 @@ services:
       - ./WorldTracker.Infra.Database/Terraform:/terraform
     entrypoint: ["/bin/sh", "-c"]
     command: ["terraform init && terraform apply -auto-approve"]
-    env_file:
-      - ./WorldTracker.Infra.Database/.env
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
 
   worldtracker.web:
     image: ${DOCKER_REGISTRY-}worldtrackerweb
@@ -19,8 +21,14 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - WT_DOTENV_PATH=/app/.env
-    env_file:
-      - ../.env
+
+      - WT_JWT_SECRET=${WT_JWT_SECRET}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+
+      - WT_OPEN_WEATHER_API_KEY=${WT_OPEN_WEATHER_API_KEY}
+      - WT_OPEN_WEATHER_BASE_URL=${WT_OPEN_WEATHER_BASE_URL}
+      - WT_REST_COUNTRY_BASE_URL=${WT_REST_COUNTRY_BASE_URL}
     depends_on:
       - terraform

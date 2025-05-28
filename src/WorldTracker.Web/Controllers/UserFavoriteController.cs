@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WorldTracker.Domain.IRepositories;
 using WorldTracker.Web.DTOs;
 
@@ -9,6 +10,7 @@ namespace WorldTracker.Web.Controllers
     public class UserFavoriteController(IUserFavoriteService service) : ControllerBase
     {
         [HttpGet("{userId}")]
+        [Authorize]
         public async Task<IActionResult> GetAllByUser(string userId)
         {
             var userFavorites = await service.GetAllByUserAsync(userId);
@@ -17,6 +19,7 @@ namespace WorldTracker.Web.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> SyncFavorites([FromBody] SyncUserFavoritesDto dto)
         {
             await service.SyncFavoritesAsync(dto.UserId, dto.FavoriteIds);

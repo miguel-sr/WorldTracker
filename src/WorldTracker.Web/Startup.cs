@@ -3,7 +3,6 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.Extensions.NETCore.Setup;
 using Amazon.Runtime;
-using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -20,8 +19,6 @@ namespace WorldTracker.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            LoadEnvironmentVariablesFromFile();
-
             ConfigureDependencyInjections(services);
             ConfigureAuthService(services);
             ConfigureDynamoDb(services);
@@ -109,9 +106,9 @@ namespace WorldTracker.Web
 
         private void ConfigureDynamoDb(IServiceCollection services)
         {
-            var accessKey = Constants.ENV_AWS_IAM_ACCESS_KEY.GetRequiredEnvironmentVariable();
-            var secretKey = Constants.ENV_AWS_IAM_SECRET_KEY.GetRequiredEnvironmentVariable();
-            var region = Constants.ENV_AWS_REGION.GetRequiredEnvironmentVariable();
+            var accessKey = Constants.ENV_AWS_ACCESS_KEY_ID.GetRequiredEnvironmentVariable();
+            var secretKey = Constants.ENV_AWS_SECRET_ACCESS_KEY.GetRequiredEnvironmentVariable();
+            var region = Constants.ENV_AWS_DEFAULT_REGION.GetRequiredEnvironmentVariable();
 
             var awsOptions = new AWSOptions
             {
@@ -122,11 +119,6 @@ namespace WorldTracker.Web
             services.AddDefaultAWSOptions(awsOptions);
             services.AddAWSService<IAmazonDynamoDB>();
             services.AddScoped<IDynamoDBContext, DynamoDBContext>();
-        }
-
-        private void LoadEnvironmentVariablesFromFile()
-        {
-            Env.Load(Constants.ENV_DOTENV_PATH.GetRequiredEnvironmentVariable());
         }
     }
 }

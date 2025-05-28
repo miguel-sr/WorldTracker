@@ -1,7 +1,15 @@
 import axios from "axios";
 
+declare global {
+  interface Window {
+    env: {
+      VITE_BASE_URL: string;
+    };
+  }
+}
+
 const API = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: window.env?.VITE_BASE_URL,
 });
 
 if (localStorage.getItem("Token")) {

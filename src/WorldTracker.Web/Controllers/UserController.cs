@@ -23,19 +23,6 @@ namespace WorldTracker.Web.Controllers
             });
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllUsers()
-        {
-            var users = (await service.GetAllAsync()).Select(user => new UserGetDto
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email
-            });
-
-            return Ok(users);
-        }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(Guid id)
         {
@@ -50,22 +37,6 @@ namespace WorldTracker.Web.Controllers
                 Name = user.Name,
                 Email = user.Email
             });
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> UpdateUser(User user)
-        {
-            await service.UpdateAsync(user);
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
-        {
-            await service.DeleteAsync(id);
-
-            return NoContent();
         }
 
         [HttpPost("auth")]
