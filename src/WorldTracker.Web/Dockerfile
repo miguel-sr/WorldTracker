@@ -11,6 +11,9 @@ WORKDIR /app
 COPY WorldTracker.Web/wwwroot/package*.json ./
 RUN npm install
 COPY WorldTracker.Web/wwwroot ./
+
+RUN echo "window.env = { VITE_BASE_URL: \"$VITE_BASE_URL\" };" > ./public/env-config.js
+
 RUN npm run build
 
 # Fase para build do backend

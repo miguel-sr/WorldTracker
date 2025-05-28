@@ -1,0 +1,30 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - name: Pull Docker image
+      run: sudo docker pull devmiguelsr/world-tracker:latest
+
+    - name: Delete Old docker container
+      run: sudo docker rm -f world-tracker || true
+
+    - name: Run Docker Container
+      run: |
+        sudo docker run -d -p 80:80 --name world-tracker \
+          -e WT_JWT_SECRET='${{ secrets.WT_JWT_SECRET }}' \
+          -e AWS_ACCESS_KEY_ID='${{ secrets.AWS_ACCESS_KEY_ID }}' \
+          -e AWS_SECRET_ACCESS_KEY='${{ secrets.AWS_SECRET_ACCESS_KEY }}' \
+          -e AWS_DEFAULT_REGION='${{ secrets.AWS_DEFAULT_REGION }}' \
+          -e WT_OPEN_WEATHER_API_KEY='${{ secrets.WT_OPEN_WEATHER_API_KEY }}' \
+          -e WT_OPEN_WEATHER_BASE_URL='${{ secrets.WT_OPEN_WEATHER_BASE_URL }}' \
+          -e WT_REST_COUNTRY_BASE_URL='${{ secrets.WT_REST_COUNTRY_BASE_URL }}' \
+          devmiguelsr/world-tracker:latest
