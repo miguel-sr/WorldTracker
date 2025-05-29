@@ -5,6 +5,7 @@ on:
     workflows: ["CI Pipeline"]
     types:
       - completed
+    conclusion: success
   workflow_dispatch:
 
 jobs:
