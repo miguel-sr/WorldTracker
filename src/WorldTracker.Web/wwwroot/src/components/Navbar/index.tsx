@@ -16,7 +16,7 @@ export default function Navbar({
   return (
     <nav className={clsx("absolute p-2 z-10 w-full bg-white", position)}>
       <div className="px-2 flex flex-wrap items-center justify-between mx-auto relative max-w-7xl">
-        <Logo color="blue" size="sm" />
+        <Logo size="sm" />
         <Toggler menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <ul
           id="navbar-menu"
