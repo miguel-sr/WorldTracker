@@ -8,7 +8,7 @@ namespace WorldTracker.Web.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class CountryWithWeatherController(ICountryService service, IWeatherService weatherService) : ControllerBase
+    public class CountryWithWeatherController(ICountryService service, IExternalWeatherService weatherService) : ControllerBase
     {
 
         [HttpGet("paged")]

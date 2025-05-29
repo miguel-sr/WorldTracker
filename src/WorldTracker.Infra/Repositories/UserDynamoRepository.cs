@@ -30,7 +30,7 @@ namespace WorldTracker.Infra.Repositories
 
         public async Task<User?> GetByEmailAsync(string email)
         {
-            return (await context.ScanAsync<User>([new(nameof(User.Email), ScanOperator.Equal, email)]).GetRemainingAsync()).FirstOrDefault();
+            return (await context.ScanAsync<User>([new(nameof(User.EmailRaw), ScanOperator.Equal, email)]).GetRemainingAsync()).FirstOrDefault();
         }
 
         public async Task UpdateAsync(User user)

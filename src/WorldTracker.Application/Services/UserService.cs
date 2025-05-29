@@ -4,15 +4,16 @@ using WorldTracker.Domain.Exceptions;
 using WorldTracker.Domain.IRepositories;
 using WorldTracker.Domain.IServices;
 
-namespace WorldTracker.Infra.Services
+namespace WorldTracker.Application.Services
 {
-    public class UserService(IUserRepository repository) : IUserService
+    public class UserService(IUserRepository repository, ITokenService tokenService) : IUserService
     {
         public async Task CreateAsync(User user)
         {
-            // Check if the e-mail is already in use
+            var existingUser = await repository.GetByEmailAsync(user.Email);
 
-            user.Password = PasswordUtils.GenerateHash(user.Password);
+            if (existingUser is not null)
+                throw new EmailAlreadyInUseException();
 
             await repository.CreateAsync(user);
         }
@@ -34,8 +35,6 @@ namespace WorldTracker.Infra.Services
 
         public async Task UpdateAsync(User user)
         {
-            user.Password = PasswordUtils.GenerateHash(user.Password);
-
             await repository.UpdateAsync(user);
         }
 
@@ -51,7 +50,7 @@ namespace WorldTracker.Infra.Services
             if (user is null || !PasswordUtils.ValidateHash(password, user.Password))
                 throw new InvalidLoginException();
 
-            return TokenService.GenerateToken(user);
+            return tokenService.GenerateToken(user);
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using WorldTracker.Domain.Entities;
 using WorldTracker.Domain.IRepositories;
+using WorldTracker.Domain.IServices;
 using WorldTracker.Domain.ValueObjects;
 
-namespace WorldTracker.Infra.Services
+namespace WorldTracker.Application.Services
 {
     public class UserFavoriteService(IUserFavoriteRepository repository) : IUserFavoriteService
     {

@@ -29,3 +29,7 @@ env-config.js
 **/.VS/
 **/bin/
 **/obj/
+
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/

@@ -3,7 +3,7 @@ services:
     image: hashicorp/terraform:1.5.7
     working_dir: /terraform
     volumes:
-      - ./WorldTracker.Infra.Database/Terraform:/terraform
+      - ../terraform:/terraform
     entrypoint: ["/bin/sh", "-c"]
     command: ["terraform init && terraform apply -auto-approve"]
     environment:

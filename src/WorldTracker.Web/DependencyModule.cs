@@ -1,4 +1,5 @@
-﻿using WorldTracker.Common;
+﻿using WorldTracker.Application.Services;
+using WorldTracker.Common;
 using WorldTracker.Common.Extensions;
 using WorldTracker.Domain.IRepositories;
 using WorldTracker.Domain.IServices;
@@ -13,8 +14,9 @@ namespace WorldTracker.Web
         {
             services.AddScoped<IUserRepository, UserDynamoRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITokenService, JwtTokenService>();
 
-            services.AddHttpClient<IWeatherService, WeatherService>(client =>
+            services.AddHttpClient<IExternalWeatherService, ExternalWeatherService>(client =>
             {
                 var baseUrl = Constants.ENV_OPEN_WEATHER_BASE_URL.GetRequiredEnvironmentVariable();
 
@@ -23,7 +25,8 @@ namespace WorldTracker.Web
             });
 
             services.AddScoped<ICountryRepository, CountryDynamoRepository>();
-            services.AddHttpClient<ICountryService, CountryService>(client =>
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddHttpClient<IExternalCountryService, ExternalCountryService>(client =>
             {
                 var baseUrl = Constants.ENV_REST_COUNTRY_BASE_URL.GetRequiredEnvironmentVariable();
 

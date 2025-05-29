@@ -1,58 +1,30 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Text.Json;
-using WorldTracker.Common.DTOs;
 using WorldTracker.Domain.Entities;
-using WorldTracker.Domain.IRepositories;
 using WorldTracker.Domain.IServices;
 using WorldTracker.Infra.DTOs;
 
 namespace WorldTracker.Infra.Services
 {
-    public class CountryService : ICountryService
+    public class ExternalCountryService : IExternalCountryService
     {
         private readonly HttpClient _httpClient;
-        private readonly ILogger<CountryService> _logger;
-        private readonly ICountryRepository _countryRepository;
+        private readonly ILogger<ExternalCountryService> _logger;
 
-        public CountryService(HttpClient httpClient, ILogger<CountryService> logger, ICountryRepository countryRepository)
+        public ExternalCountryService(HttpClient httpClient, ILogger<ExternalCountryService> logger)
         {
             _httpClient = httpClient;
             _logger = logger;
-            _countryRepository = countryRepository;
         }
 
-        public async Task<IEnumerable<Country>> GetAllCountriesAsync()
+        public async Task<IEnumerable<Country>> GetCountriesAsync()
         {
-            if (await _countryRepository.HasAnyAsync())
-                return await _countryRepository.GetAllAsync();
+            var countryDtos = await FetchCountriesAsync();
 
-            var countryDtos = await GetCountriesAsync();
-            var countries = countryDtos.Select(MapToEntity).ToList();
-
-            await _countryRepository.SaveManyAsync(countries);
-
-            return countries;
+            return countryDtos.Select(MapToEntity).ToList();
         }
 
-        public async Task<PagedResultDto<Country>> GetPagedCountriesAsync(PagedRequestDto request)
-        {
-            if (await _countryRepository.HasAnyAsync())
-                return await _countryRepository.GetPagedAsync(request);
-
-            var countryDtos = await GetCountriesAsync();
-            var countries = countryDtos.Select(MapToEntity).ToList();
-
-            await _countryRepository.SaveManyAsync(countries);
-
-            return await _countryRepository.GetPagedAsync(request);
-        }
-
-        public async Task<IEnumerable<Country>> GetCountriesByCodesAsync(string[] codes)
-        {
-            return await _countryRepository.GetByCodesAsync(codes);
-        }
-
-        private async Task<CountryResponseDto[]> GetCountriesAsync()
+        private async Task<CountryResponseDto[]> FetchCountriesAsync()
         {
             try
             {
@@ -99,16 +71,16 @@ namespace WorldTracker.Infra.Services
             };
         }
 
-        private CurrencyInfo? GetCurrencyInfo(CountryResponseDto country)
+        private CurrencyInfo? GetCurrencyInfo(CountryResponseDto dto)
         {
-            if (country.PrimaryCurrencyInfo == null)
+            if (dto.PrimaryCurrencyInfo == null)
                 return null;
 
             return new CurrencyInfo
             {
-                Name = country.PrimaryCurrencyInfo.Name,
-                Code = country.PrimaryCurrencyInfo.Code,
-                Symbol = country.PrimaryCurrencyInfo.Symbol
+                Name = dto.PrimaryCurrencyInfo.Name,
+                Code = dto.PrimaryCurrencyInfo.Code,
+                Symbol = dto.PrimaryCurrencyInfo.Symbol
             };
         }
     }

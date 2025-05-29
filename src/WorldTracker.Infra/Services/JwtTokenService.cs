@@ -5,12 +5,13 @@ using System.Text;
 using WorldTracker.Common;
 using WorldTracker.Common.Extensions;
 using WorldTracker.Domain.Entities;
+using WorldTracker.Domain.IServices;
 
 namespace WorldTracker.Infra.Services
 {
-    public class TokenService
+    public class JwtTokenService : ITokenService
     {
-        public static string GenerateToken(User user)
+        public string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -32,7 +33,7 @@ namespace WorldTracker.Infra.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public async static Task<bool> ValidateToken(string token)
+        public async Task<bool> ValidateToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var parametrosDeValidacao = new TokenValidationParameters

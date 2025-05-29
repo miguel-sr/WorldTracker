@@ -9,13 +9,13 @@ using WorldTracker.Infra.DTOs;
 
 namespace WorldTracker.Infra.Services
 {
-    public class WeatherService : IWeatherService
+    public class ExternalWeatherService : IExternalWeatherService
     {
         private readonly HttpClient _httpClient;
-        private readonly ILogger<WeatherService> _logger;
+        private readonly ILogger<ExternalWeatherService> _logger;
         private readonly string _apiKey;
 
-        public WeatherService(HttpClient httpClient, ILogger<WeatherService> logger)
+        public ExternalWeatherService(HttpClient httpClient, ILogger<ExternalWeatherService> logger)
         {
             _httpClient = httpClient;
             _logger = logger;
@@ -24,7 +24,6 @@ namespace WorldTracker.Infra.Services
 
         public async Task<Weather> GetWeather(Coordinates coordinates)
         {
-            // Set units and lang by user preference
             var url = $"data/2.5/weather?lat={coordinates.Latitude}&lon={coordinates.Longitude}&units=metric&lang=pt_br&appid={_apiKey}";
 
             try
@@ -52,7 +51,12 @@ namespace WorldTracker.Infra.Services
             }
             catch (HttpRequestException ex)
             {
-                _logger.LogError(ex, "Failed to get weather for coordinates {coordinates}", coordinates.ToString());
+                _logger.LogError(ex, "HTTP request to fetch weather for coordinates {coordinates} failed.", coordinates.ToString());
+                throw;
+            }
+            catch (JsonException ex)
+            {
+                _logger.LogError(ex, "Failed to deserialize weather data.");
                 throw;
             }
         }

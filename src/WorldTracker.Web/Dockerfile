@@ -26,8 +26,8 @@ WORKDIR /src
 COPY ["WorldTracker.Web/WorldTracker.Web.csproj", "WorldTracker.Web/"]
 COPY ["WorldTracker.Common/WorldTracker.Common.csproj", "WorldTracker.Common/"]
 COPY ["WorldTracker.Domain/WorldTracker.Domain.csproj", "WorldTracker.Domain/"]
-COPY ["WorldTracker.Infra.Database/WorldTracker.Infra.Database.csproj", "WorldTracker.Infra.Database/"]
 COPY ["WorldTracker.Infra/WorldTracker.Infra.csproj", "WorldTracker.Infra/"]
+COPY ["WorldTracker.Infra/WorldTracker.Application.csproj", "WorldTracker.Application/"]
 RUN dotnet restore "WorldTracker.Web/WorldTracker.Web.csproj"
 COPY . .
 WORKDIR "/src/WorldTracker.Web"
