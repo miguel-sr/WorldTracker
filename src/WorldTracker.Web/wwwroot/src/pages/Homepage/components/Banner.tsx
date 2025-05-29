@@ -20,7 +20,7 @@ export default function Banner() {
           Consulte o clima atual de qualquer lugar do mundo, explore dados
           completos de países e salve seus favoritos com praticidade.
         </p>
-        {isAuthenticated && (
+        {!isAuthenticated && (
           <div className="flex flex-wrap justify-center md:justify-start gap-4">
             <Link
               to="/login"
