@@ -29,7 +29,6 @@ export default function Navbar({
           <Navlink text="Início" href="/" />
           {isAuthenticated && user ? (
             <>
-              <Navlink text="Favoritos" href="/favorites" />
               <Navlink text={user.name} />
               <Navlink text="Sair" onClick={logout} />
             </>

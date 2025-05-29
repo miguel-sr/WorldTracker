@@ -1,12 +1,11 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 using System.Text.Json.Serialization;
-using WorldTracker.Common.Interfaces;
 using WorldTracker.Domain.ValueObjects;
 
 namespace WorldTracker.Domain.Entities
 {
     [DynamoDBTable("Users")]
-    public class User : IEntity<Guid>
+    public class User
     {
         [DynamoDBHashKey]
         public Guid Id { get; private set; }
