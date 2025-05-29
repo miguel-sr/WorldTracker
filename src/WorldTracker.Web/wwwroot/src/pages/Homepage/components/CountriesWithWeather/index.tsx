@@ -75,7 +75,7 @@ export default function CountriesWithWeather() {
           <button
             onClick={goPrev}
             disabled={previousTokens.length === 0}
-            className="w-full sm:w-auto px-4 py-2 rounded bg-sky-blue text-white disabled:opacity-50"
+            className="w-full sm:w-auto px-4 py-2 rounded bg-primary-blue text-white disabled:opacity-50"
           >
             Anterior
           </button>
@@ -92,7 +92,7 @@ export default function CountriesWithWeather() {
           <button
             onClick={goNext}
             disabled={!nextToken}
-            className="w-full sm:w-auto px-4 py-2 rounded bg-sky-blue text-white disabled:opacity-50"
+            className="w-full sm:w-auto px-4 py-2 rounded bg-primary-blue text-white disabled:opacity-50"
           >
             Próxima
           </button>

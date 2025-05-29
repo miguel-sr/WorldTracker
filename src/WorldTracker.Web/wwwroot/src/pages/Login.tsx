@@ -36,7 +36,7 @@ export default function Login() {
       <Navbar position="relative" />
       <section className="flex flex-col justify-center items-center min-h-full-screen w-full">
         <Logo />
-        <h1 className="text-sky-blue mb-5">Login</h1>
+        <h1 className="text-primary-blue mb-5">Login</h1>
         <Form
           className="w-full max-w-md md:w-1/4 px-4"
           onSubmit={(e) => {
@@ -65,10 +65,10 @@ export default function Login() {
           />
           <Button
             text="LOGIN"
-            className="mt-5 rounded-lg bg-sky-blue text-white hover:bg-light-blue"
+            className="mt-5 rounded-lg bg-primary-blue text-white hover:bg-light-blue"
             type="submit"
           />
-          <div className="mt-4 text-center text-sky-blue">
+          <div className="mt-4 text-center text-primary-blue">
             <span>Não tem uma conta? </span>
             <a href="/register" className="font-bold">
               Registre-se

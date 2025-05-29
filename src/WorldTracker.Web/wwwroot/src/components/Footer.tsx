@@ -24,7 +24,7 @@ export default function Footer() {
           Desenvolvido por Miguel Ramos • Fornecendo dados meteorológicos
           globais em tempo real
         </p>
-        <p className="text-xs text-light-gray">
+        <p className="text-xs">
           © {new Date().getFullYear()} GloboClima. Todos os direitos reservados.
         </p>
       </div>

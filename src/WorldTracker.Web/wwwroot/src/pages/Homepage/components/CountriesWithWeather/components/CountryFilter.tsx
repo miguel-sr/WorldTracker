@@ -21,7 +21,7 @@ export default function CountryFilter({
   }
 
   return (
-    <section className="mb-10 mx-auto p-6 bg-sky-blue">
+    <section className="mb-10 mx-auto p-6 bg-primary-blue">
       <h2 className="text-3xl font-semibold mb-4 text-center text-white">
         Busque por seu país
       </h2>
