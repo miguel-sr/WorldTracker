@@ -44,6 +44,10 @@ namespace WorldTracker.Domain.ValueObjects
 
         public override string ToString() => Hash;
 
+        public static implicit operator string(Password password) => password.Hash;
+
+        public static explicit operator Password(string value) => new(value);
+
         private string GenerateHash(string password)
         {
             var salt = RandomNumberGenerator.GetBytes(SALT_SIZE);

@@ -31,15 +31,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "primary-blue": "#006494", // Strong blue for header/footer or call to action
-        "sky-blue": "#1B98E0", // Lighter blue for accents or highlights
-        aqua: "#22D3EE", // Fresh cyan, good for buttons/links
-        "deep-navy": "#003554", // Very dark blue for background or text
-        "light-gray": "#F5F7FA", // Neutral for borders or secondary text E5E7EB
-        "dark-gray": "#374151", // Darker gray for headings or content
-        "soft-red": "#F87171", // Alerts or errors
-        "warm-yellow": "#FBBF24", // Highlights or warnings
-        "cool-green": "#34D399",
+        "primary-blue": "#1B98E0",
+        "dark-gray": "#374151",
       },
       fontFamily: {
         agency: "Agency",

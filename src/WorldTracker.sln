@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTracker.Common", "Worl
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D8EC7DEC-EBBB-4497-B8E0-7388C15AFBEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTracker.Infra.Database", "WorldTracker.Infra.Database\WorldTracker.Infra.Database.csproj", "{EC48FE23-8AD6-4258-85DA-562A2C4627B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTracker.Application", "WorldTracker.Application\WorldTracker.Application.csproj", "{04FD4495-FFA0-4D86-8FC0-FAB99983FA1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{D8EC7DEC-EBBB-4497-B8E0-7388C15AFBEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8EC7DEC-EBBB-4497-B8E0-7388C15AFBEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8EC7DEC-EBBB-4497-B8E0-7388C15AFBEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC48FE23-8AD6-4258-85DA-562A2C4627B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC48FE23-8AD6-4258-85DA-562A2C4627B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC48FE23-8AD6-4258-85DA-562A2C4627B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC48FE23-8AD6-4258-85DA-562A2C4627B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04FD4495-FFA0-4D86-8FC0-FAB99983FA1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04FD4495-FFA0-4D86-8FC0-FAB99983FA1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04FD4495-FFA0-4D86-8FC0-FAB99983FA1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04FD4495-FFA0-4D86-8FC0-FAB99983FA1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

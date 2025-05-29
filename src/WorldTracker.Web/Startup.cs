@@ -97,7 +97,7 @@ namespace WorldTracker.Web
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(TokenService.GetSecuritySecret()),
+                    IssuerSigningKey = new SymmetricSecurityKey(JwtTokenService.GetSecuritySecret()),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };

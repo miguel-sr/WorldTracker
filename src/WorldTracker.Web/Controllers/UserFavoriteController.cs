@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WorldTracker.Domain.IRepositories;
+using WorldTracker.Domain.IServices;
 using WorldTracker.Web.DTOs;
 
 namespace WorldTracker.Web.Controllers

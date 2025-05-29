@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WorldTracker.Application\WorldTracker.Application.csproj" />
     <ProjectReference Include="..\WorldTracker.Common\WorldTracker.Common.csproj" />
     <ProjectReference Include="..\WorldTracker.Domain\WorldTracker.Domain.csproj" />
     <ProjectReference Include="..\WorldTracker.Infra\WorldTracker.Infra.csproj" />

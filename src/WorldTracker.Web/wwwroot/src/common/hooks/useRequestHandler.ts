@@ -3,6 +3,16 @@ import { AxiosError } from "axios";
 import useAppContext from "../context/AppContext";
 import Notistack from "@/lib/Notistack";
 
+interface ApiErrorResponse {
+  type: string;
+  title: string;
+  status: number;
+  detail: string;
+  instance: string;
+  requestId: string;
+  traceId: string;
+}
+
 function useRequestHandler() {
   const { setLoadingState } = useAppContext();
 
@@ -12,14 +22,15 @@ function useRequestHandler() {
 
       promise
         .catch((error: AxiosError) => {
-          const message = `Could not complete the request to route [${error.config?.url}].`;
-          Notistack.showNotification(message);
+          const data = error.response?.data as ApiErrorResponse | undefined;
 
-          if (
-            typeof error.response?.data === "string" &&
-            error.response?.data !== ""
-          )
-            Notistack.showErrorMessage(String(error.response?.data));
+          if (data?.detail) {
+            Notistack.showErrorMessage(data.detail);
+          } else {
+            Notistack.showNotification(
+              `Could not complete the request to route [${error.config?.url}].`
+            );
+          }
         })
         .finally(() => {
           setLoadingState(false);

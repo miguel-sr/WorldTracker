@@ -3,7 +3,7 @@ using WorldTracker.Domain.ValueObjects;
 
 namespace WorldTracker.Domain.IServices
 {
-    public interface IWeatherService
+    public interface IExternalWeatherService
     {
         Task<Weather> GetWeather(Coordinates coordinates);
     }

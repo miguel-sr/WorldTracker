@@ -39,7 +39,7 @@ export default function Register() {
       <Navbar position="relative" />
       <section className="flex flex-col justify-center items-center min-h-full-screen w-full">
         <Logo />
-        <h1 className="text-sky-blue mb-5">Registro</h1>
+        <h1 className="text-primary-blue mb-5">Registro</h1>
         <Form
           className="w-full max-w-md md:w-1/4 px-4"
           onSubmit={(e) => {
@@ -78,10 +78,10 @@ export default function Register() {
           />
           <Button
             text="REGISTRAR"
-            className="mt-5 rounded-lg bg-sky-blue text-white hover:bg-light-blue"
+            className="mt-5 rounded-lg bg-primary-blue text-white hover:bg-light-blue"
             type="submit"
           />
-          <div className="mt-4 text-center text-sky-blue">
+          <div className="mt-4 text-center text-primary-blue">
             <span>Já tem uma conta? </span>
             <a href="/login" className="font-bold">
               Faça login

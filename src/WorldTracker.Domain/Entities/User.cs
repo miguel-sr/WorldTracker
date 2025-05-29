@@ -1,5 +1,7 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
+using System.Text.Json.Serialization;
 using WorldTracker.Common.Interfaces;
+using WorldTracker.Domain.ValueObjects;
 
 namespace WorldTracker.Domain.Entities
 {
@@ -12,13 +14,27 @@ namespace WorldTracker.Domain.Entities
         [DynamoDBProperty]
         public required string Name { get; set; }
 
-        // Change to Value-Object
         [DynamoDBProperty]
-        public required string Email { get; set; }
+        [JsonIgnore]
+        public string EmailRaw { get; set; }
 
-        // Change to Value-Object
+        [DynamoDBIgnore]
+        public required Email Email
+        {
+            get => (Email)EmailRaw;
+            set => EmailRaw = value;
+        }
+
         [DynamoDBProperty]
-        public required string Password { get; set; }
+        [JsonIgnore]
+        private string PasswordRaw { get; set; }
+
+        [DynamoDBIgnore]
+        public required Password Password
+        {
+            get => new(PasswordRaw, true);
+            set => PasswordRaw = value;
+        }
 
         [DynamoDBProperty]
         public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
