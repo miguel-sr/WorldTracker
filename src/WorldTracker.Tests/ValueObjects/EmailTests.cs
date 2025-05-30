@@ -57,5 +57,35 @@ namespace WorldTracker.Tests.ValueObjects
 
             Assert.Equal("teste@example.com", email.Value);
         }
+
+        [Fact]
+        public void OperatorEquals_ShouldReturnTrue_ForSameEmailValue()
+        {
+            var email1 = new Email("teste@example.com");
+            var email2 = new Email("teste@example.com");
+
+            Assert.True(email1 == email2);
+            Assert.False(email1 != email2);
+        }
+
+        [Fact]
+        public void OperatorEquals_ShouldReturnFalse_ForDifferentEmailValues()
+        {
+            var email1 = new Email("teste@example.com");
+            var email2 = new Email("outro@example.com");
+
+            Assert.False(email1 == email2);
+            Assert.True(email1 != email2);
+        }
+
+        [Fact]
+        public void OperatorEquals_ShouldReturnFalse_WhenOneSideIsNull()
+        {
+            var email1 = new Email("teste@example.com");
+            Email? email2 = null;
+
+            Assert.False(email1 == email2);
+            Assert.True(email1 != email2);
+        }
     }
 }

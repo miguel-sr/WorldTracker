@@ -16,7 +16,7 @@ namespace WorldTracker.Domain.ValueObjects
         public Coordinates(double latitude, double longitude)
         {
             if (latitude is < MinLatitude or > MaxLatitude)
-            throw new ArgumentOutOfRangeException(nameof(latitude), $"Latitude must be between {MinLatitude} and {MaxLatitude}.");
+                throw new ArgumentOutOfRangeException(nameof(latitude), $"Latitude must be between {MinLatitude} and {MaxLatitude}.");
 
             if (longitude is < MinLongitude or > MaxLongitude)
                 throw new ArgumentOutOfRangeException(nameof(longitude), $"Longitude must be between {MinLongitude} and {MaxLongitude}.");
@@ -27,7 +27,7 @@ namespace WorldTracker.Domain.ValueObjects
 
         public override string ToString() => string.Format(CultureInfo.InvariantCulture, "{0}, {1}", Latitude, Longitude);
 
-        public static Coordinates Parse(string value)
+        private static Coordinates Parse(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Input string cannot be null or empty.");

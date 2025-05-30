@@ -25,7 +25,12 @@ namespace WorldTracker.Application.Services
 
         public async Task<User> GetByIdAsync(Guid id)
         {
-            return await repository.GetByIdAsync(id);
+            var user = await repository.GetByIdAsync(id);
+
+            if (user is null)
+                throw new ResourceNotFoundException(nameof(User), id);
+
+            return user;
         }
 
         public async Task<User?> GetByEmailAsync(string email)
@@ -40,6 +45,11 @@ namespace WorldTracker.Application.Services
 
         public async Task DeleteAsync(Guid id)
         {
+            var user = await repository.GetByIdAsync(id);
+            
+            if (user == null)
+                throw new ResourceNotFoundException(nameof(User), id);
+
             await repository.DeleteAsync(id);
         }
 

@@ -44,12 +44,12 @@ namespace WorldTracker.Tests.ValueObjects
         [InlineData("12.34, 56.78", 12.34, 56.78)]
         [InlineData("-90, -180", -90, -180)]
         [InlineData("90, 180", 90, 180)]
-        public void Parse_WithValidString_ShouldReturnCoordinates(string input, double expectedLat, double expectedLon)
+        public void ExplicitConversion_FromValidString_ShouldReturnCoordinates(string input, double expectedLat, double expectedLon)
         {
-            var coords = Coordinates.Parse(input);
+            Coordinates coordinates = (Coordinates)input;
 
-            Assert.Equal(expectedLat, coords.Latitude);
-            Assert.Equal(expectedLon, coords.Longitude);
+            Assert.Equal(expectedLat, coordinates.Latitude);
+            Assert.Equal(expectedLon, coordinates.Longitude);
         }
 
         [Theory]
@@ -57,17 +57,17 @@ namespace WorldTracker.Tests.ValueObjects
         [InlineData("12.34,")]
         [InlineData("abc, def")]
         [InlineData("12.34;56.78")]
-        public void Parse_WithInvalidString_ShouldThrowFormatException(string invalidInput)
+        public void ExplicitConversion_FromInvalidString_ShouldThrowFormatException(string invalidInput)
         {
-            Assert.Throws<FormatException>(() => Coordinates.Parse(invalidInput));
+            Assert.Throws<FormatException>(() => (Coordinates)invalidInput);
         }
 
         [Theory]
         [InlineData("")]
         [InlineData(null)]
-        public void Parse_WithNullString_ShouldThrowArgumentException(string invalidInput)
+        public void ExplicitConversion_FromNullOrEmptyString_ShouldThrowArgumentException(string invalidInput)
         {
-            Assert.Throws<ArgumentException>(() => Coordinates.Parse(invalidInput));
+            Assert.Throws<ArgumentException>(() => (Coordinates)invalidInput);
         }
 
         [Fact]
@@ -96,26 +96,6 @@ namespace WorldTracker.Tests.ValueObjects
 
             Assert.Equal(0, coordinates.Latitude);
             Assert.Equal(0, coordinates.Longitude);
-        }
-
-        [Fact]
-        public void ExplicitConversion_FromString_ShouldParseCoordinates()
-        {
-            string str = "45.67, 89.01";
-
-            Coordinates coordinates = (Coordinates)str;
-
-            Assert.Equal(45.67, coordinates.Latitude);
-            Assert.Equal(89.01, coordinates.Longitude);
-        }
-
-        [Fact]
-        public void ExplicitConversion_FromInvalidString_ShouldThrowFormatException()
-        {
-            Assert.Throws<FormatException>(() =>
-            {
-                var _ = (Coordinates)"invalid string";
-            });
         }
     }
 }
