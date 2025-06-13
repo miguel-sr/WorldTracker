@@ -1,4 +1,5 @@
 ﻿using WorldTracker.Domain.Entities;
+using WorldTracker.Domain.Exceptions;
 using WorldTracker.Domain.IRepositories;
 using WorldTracker.Domain.IServices;
 using WorldTracker.Domain.ValueObjects;
@@ -44,6 +45,11 @@ namespace WorldTracker.Application.Services
 
         public async Task DeleteAsync(string userId, FavoriteId favoriteId)
         {
+            var userFavorite = await repository.GetByIdAsync(userId, favoriteId);
+
+            if (userFavorite is null)
+                throw new ResourceNotFoundException(nameof(UserFavorite), $"{userId}/{favoriteId}");
+
             await repository.DeleteAsync(userId, favoriteId);
         }
     }

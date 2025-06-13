@@ -9,13 +9,21 @@ namespace WorldTracker.Domain.ValueObjects
         public Email(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException("Email não pode ser vazio.");
+                throw new ArgumentException("Email cannot be empty.");
 
             if (!Regex.IsMatch(value, @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase))
-                throw new ArgumentException("Email em formato inválido.");
+                throw new ArgumentException("Invalid email format.");
 
             Value = value.Trim();
         }
+
+        public static bool operator ==(Email? left, Email? right) => Equals(left, right);
+
+        public static bool operator !=(Email? left, Email? right) => !Equals(left, right);
+
+        public override bool Equals(object? obj) => obj is Email other && Value == other.Value;
+
+        public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => Value;
 

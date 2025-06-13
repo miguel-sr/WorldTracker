@@ -8,7 +8,7 @@ namespace WorldTracker.Infra.DTOs
         public required Name Name { get; set; }
 
         [JsonPropertyName("cca2")]
-        public required string IsoAlpha2Code { get; set; }
+        public string? IsoAlpha2Code { get; set; }
 
         [JsonPropertyName("ccn3")]
         public string? IsoNumericCode { get; set; }

@@ -1,7 +1,6 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
 using WorldTracker.Domain.Entities;
-using WorldTracker.Domain.Exceptions;
 using WorldTracker.Domain.IRepositories;
 
 namespace WorldTracker.Infra.Repositories
@@ -18,19 +17,14 @@ namespace WorldTracker.Infra.Repositories
             return await context.ScanAsync<User>([]).GetRemainingAsync();
         }
 
-        public async Task<User> GetByIdAsync(Guid id)
+        public async Task<User?> GetByIdAsync(Guid id)
         {
-            var user = await context.LoadAsync<User>(id);
-
-            if (user is null)
-                throw new ResourceNotFoundException(nameof(User), id);
-
-            return user;
+            return await context.LoadAsync<User?>(id);
         }
 
         public async Task<User?> GetByEmailAsync(string email)
         {
-            return (await context.ScanAsync<User>([new(nameof(User.EmailRaw), ScanOperator.Equal, email)]).GetRemainingAsync()).FirstOrDefault();
+            return (await context.ScanAsync<User?>([new(nameof(User.EmailRaw), ScanOperator.Equal, email)]).GetRemainingAsync()).FirstOrDefault();
         }
 
         public async Task UpdateAsync(User user)
@@ -40,8 +34,6 @@ namespace WorldTracker.Infra.Repositories
 
         public async Task DeleteAsync(Guid id)
         {
-            await GetByIdAsync(id);
-
             await context.DeleteAsync<User>(id);
         }
     }

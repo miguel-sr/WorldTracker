@@ -1,5 +1,4 @@
-﻿using WorldTracker.Common;
-using WorldTracker.Domain.Entities;
+﻿using WorldTracker.Domain.Entities;
 using WorldTracker.Domain.Exceptions;
 using WorldTracker.Domain.IRepositories;
 using WorldTracker.Domain.IServices;
@@ -25,7 +24,12 @@ namespace WorldTracker.Application.Services
 
         public async Task<User> GetByIdAsync(Guid id)
         {
-            return await repository.GetByIdAsync(id);
+            var user = await repository.GetByIdAsync(id);
+
+            if (user is null)
+                throw new ResourceNotFoundException(nameof(User), id);
+
+            return user;
         }
 
         public async Task<User?> GetByEmailAsync(string email)
@@ -40,6 +44,11 @@ namespace WorldTracker.Application.Services
 
         public async Task DeleteAsync(Guid id)
         {
+            var user = await repository.GetByIdAsync(id);
+            
+            if (user == null)
+                throw new ResourceNotFoundException(nameof(User), id);
+
             await repository.DeleteAsync(id);
         }
 
@@ -47,7 +56,7 @@ namespace WorldTracker.Application.Services
         {
             var user = await GetByEmailAsync(email);
 
-            if (user is null || !PasswordUtils.ValidateHash(password, user.Password))
+            if (user is null || !user.Password.Matches(password))
                 throw new InvalidLoginException();
 
             return tokenService.GenerateToken(user);

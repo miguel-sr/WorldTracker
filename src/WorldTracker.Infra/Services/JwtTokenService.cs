@@ -33,7 +33,7 @@ namespace WorldTracker.Infra.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<bool> ValidateToken(string token)
+        public async Task<bool> ValidateTokenAsync(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var parametrosDeValidacao = new TokenValidationParameters
