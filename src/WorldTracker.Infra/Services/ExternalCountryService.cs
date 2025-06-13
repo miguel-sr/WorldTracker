@@ -28,7 +28,7 @@ namespace WorldTracker.Infra.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync("all");
+                var response = await _httpClient.GetAsync("all?fields=name,cca3,population,region,subregion,currencies,flags,languages,latlng");
                 response.EnsureSuccessStatusCode();
 
                 var json = await response.Content.ReadAsStringAsync();
