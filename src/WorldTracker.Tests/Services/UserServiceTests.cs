@@ -22,7 +22,7 @@ namespace WorldTracker.Tests.Services
         }
 
         [Fact]
-        public async Task CreateAsync_ShouldCreateUser_WhenEmailIsAvailable()
+        public async Task CreateAsync_ShouldCallRepositoryCreateAsync_WhenEmailIsAvailable()
         {
             var user = new User
             {
@@ -42,7 +42,7 @@ namespace WorldTracker.Tests.Services
         }
 
         [Fact]
-        public async Task CreateAsync_ShouldThrowEmailAlreadyInUseException_WhenEmailIsUnavailable()
+        public async Task CreateAsync_ShouldThrowEmailAlreadyInUseException_WhenEmailIsAlreadyInUse()
         {
             var user = new User
             {
@@ -62,7 +62,7 @@ namespace WorldTracker.Tests.Services
         }
 
         [Fact]
-        public async Task GetAllAsync_ShouldReturnUsers_WhenUsersExist()
+        public async Task GetAllAsync_ShouldReturnAllUsers_WhenUsersExist()
         {
             var users = new List<User>
             {
@@ -95,7 +95,7 @@ namespace WorldTracker.Tests.Services
         }
 
         [Fact]
-        public async Task GetAllAsync_ShouldNotReturnAnyUsers_WhenUsersDoNotExist()
+        public async Task GetAllAsync_ShouldReturnEmptyList_WhenNoUsersExist()
         {
             _userRepositoryMock
                 .Setup(r => r.GetAllAsync())

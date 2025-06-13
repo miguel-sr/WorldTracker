@@ -1,5 +1,4 @@
-﻿using WorldTracker.Common;
-using WorldTracker.Domain.Entities;
+﻿using WorldTracker.Domain.Entities;
 using WorldTracker.Domain.Exceptions;
 using WorldTracker.Domain.IRepositories;
 using WorldTracker.Domain.IServices;
@@ -57,7 +56,7 @@ namespace WorldTracker.Application.Services
         {
             var user = await GetByEmailAsync(email);
 
-            if (user is null || !PasswordUtils.ValidateHash(password, user.Password))
+            if (user is null || !user.Password.Matches(password))
                 throw new InvalidLoginException();
 
             return tokenService.GenerateToken(user);

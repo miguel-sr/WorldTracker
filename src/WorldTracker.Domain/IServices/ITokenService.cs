@@ -6,6 +6,6 @@ namespace WorldTracker.Domain.IServices
     {
         string GenerateToken(User user);
 
-        Task<bool> ValidateToken(string token);
+        Task<bool> ValidateTokenAsync(string token);
     }
 }

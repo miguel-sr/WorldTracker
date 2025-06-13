@@ -19,6 +19,10 @@
 
         public override string ToString() => $"{Type}#{Value}";
 
+        public static bool operator ==(FavoriteId? left, FavoriteId? right) => Equals(left, right);
+
+        public static bool operator !=(FavoriteId? left, FavoriteId? right) => !Equals(left, right);
+
         public override bool Equals(object? obj) => obj is FavoriteId other && Type == other.Type && Value == other.Value;
 
         public override int GetHashCode() => HashCode.Combine(Type, Value);
